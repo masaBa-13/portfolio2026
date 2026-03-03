@@ -32,6 +32,12 @@ export default function RootLayout({
         <html lang="ja">
             <head>
                 <meta name="theme-color" content="#080B0F" />
+                {/* Polyfills for iOS Safari < 15.4 */}
+                <script dangerouslySetInnerHTML={{ __html: `
+                  if(!Object.hasOwn){Object.hasOwn=function(o,k){return Object.prototype.hasOwnProperty.call(o,k)};}
+                  if(!Array.prototype.at){Array.prototype.at=function(i){i=Math.trunc(i)||0;if(i<0)i+=this.length;if(i<0||i>=this.length)return undefined;return this[i]};}
+                  if(!String.prototype.at){String.prototype.at=function(i){i=Math.trunc(i)||0;if(i<0)i+=this.length;if(i<0||i>=this.length)return undefined;return this[i]};}
+                `}} />
             </head>
             <body>{children}</body>
         </html>
