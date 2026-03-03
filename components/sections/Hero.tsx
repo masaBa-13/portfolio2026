@@ -116,30 +116,31 @@ export default function Hero() {
                         </div>
                     ))}
                 </div>
+            </div>
 
-                {/* Scroll indicator */}
+            {/* Scroll indicator — section基準で配置 */}
+            <div
+                style={{
+                    position: 'absolute',
+                    bottom: '80px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '12px',
+                    color: 'var(--text-muted)',
+                    textAlign: 'center',
+                    zIndex: 2,
+                }}
+            >
+                <div style={{ marginBottom: '8px' }}>SCROLL_DOWN</div>
                 <div
                     style={{
-                        position: 'absolute',
-                        bottom: '40px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '12px',
-                        color: 'var(--text-muted)',
-                        textAlign: 'center',
+                        width: '1px',
+                        height: '40px',
+                        background: 'linear-gradient(to bottom, var(--accent), transparent)',
+                        margin: '0 auto',
                     }}
-                >
-                    <div style={{ marginBottom: '8px' }}>SCROLL_DOWN</div>
-                    <div
-                        style={{
-                            width: '1px',
-                            height: '40px',
-                            background: 'linear-gradient(to bottom, var(--accent), transparent)',
-                            margin: '0 auto',
-                        }}
-                    />
-                </div>
+                />
             </div>
         </section>
     );

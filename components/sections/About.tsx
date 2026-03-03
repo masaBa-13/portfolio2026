@@ -12,7 +12,7 @@ const specs = [
     { key: 'ORGANIZATION', value: '学生団体ISARIBI with / おさかな日和' },
     { key: 'LOCATION', value: '函館, 北海道, Japan' },
     { key: 'INTERESTS', value: 'カメラ📷 / スノボ🏂 / コーヒー☕️' },
-    { key: 'PHILOSOPHY', value: '"ローカルな泥臭い課題 × 最新テクノロジーの精緻な実装"' },
+    { key: 'PHILOSOPHY', value: '"ローカルな泥臭い課題 × テクノロジーの実装"' },
 ];
 
 export default function About() {

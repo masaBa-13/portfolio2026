@@ -15,25 +15,25 @@ const skillCategories: SkillCategory[] = [
             { name: 'Next.js / React', level: 90 },
             { name: 'TypeScript', level: 85 },
             { name: 'HTML / CSS', level: 90 },
-            { name: 'React Native', level: 65 },
+            { name: 'Flutter', level: 35 },
         ],
     },
     {
         name: 'Backend & Infra',
         skills: [
             { name: 'Node.js', level: 75 },
-            { name: 'Supabase / PostgreSQL', level: 80 },
+            { name: 'Supabase / MySQL', level: 80 },
             { name: 'Cloudflare Workers', level: 70 },
-            { name: 'REST API Design', level: 80 },
+            { name: 'REST API Design', level: 60 },
         ],
     },
     {
         name: 'IoT & Hardware',
         skills: [
-            { name: 'Arduino / ESP32', level: 75 },
+            { name: 'Arduino / Spresense', level: 75 },
             { name: 'センサー設計 (磁気/加速度)', level: 70 },
-            { name: 'LoRa / LPWAN', level: 65 },
-            { name: '電波法コンプライアンス', level: 60 },
+            { name: 'ELTRES / LPWA', level: 65 },
+            { name: '電波法コンプライアンス', level: 55 },
         ],
     },
     {

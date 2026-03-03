@@ -107,8 +107,8 @@ export const timelineData: TimelineEvent[] = [
     details: [
       '代表取締役CEOとして経営全般を統括',
       'RemeMore: NFC/QRコードによるデジタル名刺サービス',
-      '60〜21,800円の多層的価格設定',
-      'ペーパーレス化・ESG経営の推進',
+      '学生・フリーランスを主なターゲットとするB2C SaaS',
+      '大学生協との提携による店頭販売を実現',
     ],
     tags: ['起業', 'SaaS', 'CEO'],
     link: 'https://tackmore.jp/about',
