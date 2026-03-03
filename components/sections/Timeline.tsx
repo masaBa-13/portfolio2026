@@ -12,28 +12,18 @@ export default function Timeline() {
     const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
     return (
-        <section id="timeline" style={{ padding: '100px 0' }}>
+        <section id="timeline">
             <div className="container" ref={ref}>
-                <div className="section-title">// timeline</div>
+                <div className="section-label">// timeline</div>
                 <h2 className="section-heading">
-                    <span className="accent">git</span> log --oneline
+                    <span className="text-accent">git</span> log --oneline
                 </h2>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'start' }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
                     {/* Left: Timeline */}
-                    <div style={{ position: 'relative', paddingLeft: '32px' }}>
+                    <div className="relative pl-8">
                         {/* Vertical line */}
-                        <div
-                            style={{
-                                position: 'absolute',
-                                left: '7px',
-                                top: 0,
-                                bottom: 0,
-                                width: '1px',
-                                background: 'var(--accent)',
-                                opacity: 0.4,
-                            }}
-                        />
+                        <div className="absolute left-[7px] top-0 bottom-0 w-px bg-accent opacity-40" />
 
                         {timelineData.map((event, i) => (
                             <motion.div
@@ -42,19 +32,14 @@ export default function Timeline() {
                                 animate={inView ? { opacity: 1, x: 0 } : {}}
                                 transition={{ duration: 0.4, delay: i * 0.08 }}
                                 onClick={() => setSelected(selected?.id === event.id ? null : event)}
+                                className="relative mb-7 cursor-pointer p-4 transition-all duration-200"
                                 style={{
-                                    position: 'relative',
-                                    marginBottom: '28px',
-                                    cursor: 'pointer',
-                                    padding: '16px',
-                                    border: `1px solid ${selected?.id === event.id ? 'var(--accent)' : 'transparent'}`,
-                                    background:
-                                        selected?.id === event.id ? 'rgba(0,255,148,0.03)' : 'transparent',
-                                    transition: 'all 0.2s ease',
+                                    border: `1px solid ${selected?.id === event.id ? 'var(--color-accent)' : 'transparent'}`,
+                                    background: selected?.id === event.id ? 'rgba(0,255,148,0.03)' : 'transparent',
                                 }}
                                 onMouseEnter={(e) => {
                                     if (selected?.id !== event.id) {
-                                        e.currentTarget.style.borderColor = 'var(--border)';
+                                        e.currentTarget.style.borderColor = 'var(--color-border)';
                                         e.currentTarget.style.background = 'rgba(13,17,23,0.5)';
                                     }
                                 }}
@@ -67,49 +52,22 @@ export default function Timeline() {
                             >
                                 {/* Node dot */}
                                 <div
+                                    className="absolute top-5 w-[10px] h-[10px] border-2 border-accent transition-colors duration-200"
                                     style={{
-                                        position: 'absolute',
                                         left: '-29px',
-                                        top: '20px',
-                                        width: '10px',
-                                        height: '10px',
-                                        background:
-                                            selected?.id === event.id ? 'var(--accent)' : 'var(--surface)',
-                                        border: `2px solid var(--accent)`,
-                                        transition: 'background 0.2s ease',
+                                        background: selected?.id === event.id ? 'var(--color-accent)' : 'var(--color-surface)',
                                     }}
                                 />
 
-                                <div
-                                    style={{
-                                        fontFamily: 'var(--font-mono)',
-                                        fontSize: '12px',
-                                        color: 'var(--accent)',
-                                        marginBottom: '4px',
-                                    }}
-                                >
-                                    {event.date}
-                                </div>
-                                <div
-                                    style={{
-                                        fontFamily: 'var(--font-mono)',
-                                        fontSize: '15px',
-                                        fontWeight: 700,
-                                        color: 'var(--text)',
-                                        marginBottom: '6px',
-                                    }}
-                                >
-                                    {event.title}
-                                </div>
-                                <div style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                                    {event.description}
-                                </div>
+                                <div className="font-mono text-xs text-accent mb-1">{event.date}</div>
+                                <div className="font-mono text-[15px] font-bold text-fg mb-[6px]">{event.title}</div>
+                                <div className="text-[13px] text-muted leading-[1.5]">{event.description}</div>
                             </motion.div>
                         ))}
                     </div>
 
                     {/* Right: Detail panel */}
-                    <div style={{ position: 'sticky', top: '100px' }}>
+                    <div className="sticky top-[100px]">
                         <AnimatePresence mode="wait">
                             {selected ? (
                                 <motion.div
@@ -120,47 +78,20 @@ export default function Timeline() {
                                     transition={{ duration: 0.3 }}
                                 >
                                     <TerminalCard title={`details/${selected.id}.log`}>
-                                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>
-                                            <div style={{ color: 'var(--accent)', marginBottom: '16px' }}>
-                                                {'>'} {selected.title}
-                                            </div>
-                                            <div style={{ color: 'var(--text-muted)', marginBottom: '8px' }}>
-                                                DATE: {selected.date}
-                                            </div>
+                                        <div className="font-mono text-[13px]">
+                                            <div className="text-accent mb-4">{'>'} {selected.title}</div>
+                                            <div className="text-muted mb-2">DATE: {selected.date}</div>
 
-                                            <div style={{ marginBottom: '16px' }}>
+                                            <div className="mb-4">
                                                 {selected.details.map((detail, i) => (
-                                                    <div
-                                                        key={i}
-                                                        style={{
-                                                            color: 'var(--text)',
-                                                            marginBottom: '6px',
-                                                            paddingLeft: '16px',
-                                                            position: 'relative',
-                                                        }}
-                                                    >
-                                                        <span
-                                                            style={{
-                                                                position: 'absolute',
-                                                                left: 0,
-                                                                color: 'var(--accent)',
-                                                            }}
-                                                        >
-                                                            ▸
-                                                        </span>
+                                                    <div key={i} className="text-fg mb-[6px] pl-4 relative">
+                                                        <span className="absolute left-0 text-accent">▸</span>
                                                         {detail}
                                                     </div>
                                                 ))}
                                             </div>
 
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    gap: '6px',
-                                                    flexWrap: 'wrap',
-                                                    marginBottom: '16px',
-                                                }}
-                                            >
+                                            <div className="flex gap-[6px] flex-wrap mb-4">
                                                 {selected.tags.map((tag) => (
                                                     <TagBadge key={tag} label={tag} accent />
                                                 ))}
@@ -171,14 +102,7 @@ export default function Timeline() {
                                                     href={selected.link}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    style={{
-                                                        display: 'inline-block',
-                                                        fontFamily: 'var(--font-mono)',
-                                                        fontSize: '12px',
-                                                        color: 'var(--accent-2)',
-                                                        borderBottom: '1px solid var(--accent-2)',
-                                                        paddingBottom: '2px',
-                                                    }}
+                                                    className="inline-block font-mono text-xs text-accent-2 border-b border-accent-2 pb-[2px]"
                                                 >
                                                     → OPEN_LINK
                                                 </a>
@@ -193,16 +117,8 @@ export default function Timeline() {
                                     exit={{ opacity: 0 }}
                                 >
                                     <TerminalCard title="hint">
-                                        <div
-                                            style={{
-                                                fontFamily: 'var(--font-mono)',
-                                                fontSize: '13px',
-                                                color: 'var(--text-muted)',
-                                                textAlign: 'center',
-                                                padding: '40px 0',
-                                            }}
-                                        >
-                                            <div style={{ fontSize: '32px', marginBottom: '16px' }}>{'{ }'}</div>
+                                        <div className="font-mono text-[13px] text-muted text-center py-10">
+                                            <div className="text-[32px] mb-4">{'{ }'}</div>
                                             <div>左のイベントをクリックで</div>
                                             <div>詳細を表示します</div>
                                         </div>
@@ -213,14 +129,6 @@ export default function Timeline() {
                     </div>
                 </div>
             </div>
-
-            <style jsx>{`
-        @media (max-width: 768px) {
-          div[style*="grid-template-columns: 1fr 1fr"] {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
         </section>
     );
 }

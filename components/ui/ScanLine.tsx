@@ -2,33 +2,20 @@
 
 export default function ScanLine() {
     return (
-        <div
-            style={{
-                position: 'fixed',
-                inset: 0,
-                zIndex: 9999,
-                pointerEvents: 'none',
-                overflow: 'hidden',
-            }}
-        >
+        <div className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden">
             {/* Scan lines */}
             <div
+                className="absolute inset-0"
                 style={{
-                    position: 'absolute',
-                    inset: 0,
                     background:
                         'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)',
                 }}
             />
             {/* Moving scan beam */}
             <div
+                className="absolute left-0 right-0 h-0.5 opacity-[0.06]"
                 style={{
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    height: '2px',
-                    background: 'linear-gradient(90deg, transparent, var(--accent), transparent)',
-                    opacity: 0.06,
+                    background: 'linear-gradient(90deg, transparent, var(--color-accent), transparent)',
                     animation: 'scanline 8s linear infinite',
                 }}
             />

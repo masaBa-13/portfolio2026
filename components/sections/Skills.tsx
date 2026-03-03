@@ -51,66 +51,33 @@ export default function Skills() {
     const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
 
     return (
-        <section id="skills" style={{ padding: '100px 0' }}>
+        <section id="skills">
             <div className="container" ref={ref}>
-                <div className="section-title">// skills</div>
+                <div className="section-label">// skills</div>
                 <h2 className="section-heading">
-                    <span className="accent">npm</span> list --depth=0
+                    <span className="text-accent">npm</span> list --depth=0
                 </h2>
 
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
-                        gap: '32px',
-                    }}
-                >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {skillCategories.map((category, ci) => (
                         <motion.div
                             key={category.name}
                             initial={{ opacity: 0, y: 20 }}
                             animate={inView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.5, delay: ci * 0.1 }}
-                            style={{
-                                background: 'var(--surface)',
-                                border: '1px solid var(--border)',
-                                padding: '24px',
-                            }}
+                            className="bg-surface border border-border p-6"
                         >
-                            <h3
-                                style={{
-                                    fontFamily: 'var(--font-mono)',
-                                    fontSize: '14px',
-                                    color: 'var(--accent)',
-                                    marginBottom: '20px',
-                                    letterSpacing: '1px',
-                                }}
-                            >
+                            <h3 className="font-mono text-sm text-accent mb-5 tracking-[1px]">
                                 {'// '}{category.name}
                             </h3>
 
                             {category.skills.map((skill, si) => (
-                                <div key={skill.name} style={{ marginBottom: '16px' }}>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            fontFamily: 'var(--font-mono)',
-                                            fontSize: '12px',
-                                            marginBottom: '6px',
-                                        }}
-                                    >
-                                        <span style={{ color: 'var(--text)' }}>{skill.name}</span>
-                                        <span style={{ color: 'var(--text-muted)' }}>{skill.level}%</span>
+                                <div key={skill.name} className="mb-4">
+                                    <div className="flex justify-between font-mono text-xs mb-[6px]">
+                                        <span className="text-fg">{skill.name}</span>
+                                        <span className="text-muted">{skill.level}%</span>
                                     </div>
-                                    <div
-                                        style={{
-                                            height: '4px',
-                                            background: 'rgba(30,45,61,0.5)',
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                        }}
-                                    >
+                                    <div className="h-1 bg-border/50 relative overflow-hidden">
                                         <motion.div
                                             initial={{ width: 0 }}
                                             animate={inView ? { width: `${skill.level}%` } : {}}
@@ -119,14 +86,14 @@ export default function Skills() {
                                                 delay: ci * 0.1 + si * 0.05 + 0.3,
                                                 ease: 'easeOut',
                                             }}
+                                            className="h-full"
                                             style={{
-                                                height: '100%',
                                                 background:
                                                     skill.level >= 80
-                                                        ? 'var(--accent)'
+                                                        ? 'var(--color-accent)'
                                                         : skill.level >= 60
-                                                            ? 'var(--accent-2)'
-                                                            : 'var(--text-muted)',
+                                                            ? 'var(--color-accent-2)'
+                                                            : 'var(--color-muted)',
                                             }}
                                         />
                                     </div>
@@ -136,14 +103,6 @@ export default function Skills() {
                     ))}
                 </div>
             </div>
-
-            <style jsx>{`
-        @media (max-width: 768px) {
-          div[style*="grid-template-columns: 1fr 1fr"] {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
         </section>
     );
 }
