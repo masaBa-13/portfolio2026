@@ -28,33 +28,70 @@ export default function Header() {
 
     return (
         <header
-            className="fixed top-0 left-0 right-0 z-[1000] transition-all duration-300"
             style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                zIndex: 1000,
                 background: scrolled ? 'rgba(8,11,15,0.92)' : 'transparent',
-                borderBottom: scrolled ? '1px solid var(--color-border)' : '1px solid transparent',
+                borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
                 backdropFilter: scrolled ? 'blur(12px)' : 'none',
+                transition: 'all 0.3s ease',
             }}
         >
-            <div className="container flex justify-between items-center h-16">
+            <div
+                className="container"
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    height: '64px',
+                }}
+            >
                 {/* Logo */}
-                <a href="#hero" className="font-mono text-base font-bold text-accent">
+                <a
+                    href="#hero"
+                    style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '16px',
+                        fontWeight: 700,
+                        color: 'var(--accent)',
+                        textDecoration: 'none',
+                    }}
+                >
                     {'<'}
-                    <span className="text-fg">masaBa-13</span>
+                    <span style={{ color: 'var(--text)' }}>masaBa-13</span>
                     {' />'}
                 </a>
 
                 {/* Desktop nav */}
-                <nav className="hidden md:flex gap-1 items-center">
+                <nav
+                    style={{
+                        display: 'flex',
+                        gap: '4px',
+                        alignItems: 'center',
+                    }}
+                    className="desktop-nav"
+                >
                     {navItems.map((item) => (
                         <a
                             key={item.id}
                             href={`#${item.id}`}
-                            className={[
-                                'font-mono text-xs px-3 py-[6px] transition-all duration-200 tracking-[0.5px] border-b',
-                                activeId === item.id
-                                    ? 'text-accent border-accent'
-                                    : 'text-muted border-transparent',
-                            ].join(' ')}
+                            style={{
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '12px',
+                                padding: '6px 12px',
+                                color:
+                                    activeId === item.id ? 'var(--accent)' : 'var(--text-muted)',
+                                textDecoration: 'none',
+                                borderBottom:
+                                    activeId === item.id
+                                        ? '1px solid var(--accent)'
+                                        : '1px solid transparent',
+                                transition: 'all 0.2s ease',
+                                letterSpacing: '0.5px',
+                            }}
                         >
                             {item.label}
                         </a>
@@ -63,8 +100,16 @@ export default function Header() {
 
                 {/* Mobile menu button */}
                 <button
-                    className="md:hidden bg-transparent border border-border p-2 cursor-pointer text-fg"
+                    className="mobile-menu-btn"
                     onClick={() => setMenuOpen(!menuOpen)}
+                    style={{
+                        display: 'none',
+                        background: 'none',
+                        border: '1px solid var(--border)',
+                        padding: '8px',
+                        cursor: 'pointer',
+                        color: 'var(--text)',
+                    }}
                 >
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                         {menuOpen ? (
@@ -78,22 +123,50 @@ export default function Header() {
 
             {/* Mobile menu */}
             {menuOpen && (
-                <div className="absolute top-16 left-0 right-0 bg-[rgba(8,11,15,0.98)] border-b border-border px-6 py-4">
+                <div
+                    className="mobile-menu"
+                    style={{
+                        position: 'absolute',
+                        top: '64px',
+                        left: 0,
+                        right: 0,
+                        background: 'rgba(8,11,15,0.98)',
+                        borderBottom: '1px solid var(--border)',
+                        padding: '16px 24px',
+                    }}
+                >
                     {navItems.map((item) => (
                         <a
                             key={item.id}
                             href={`#${item.id}`}
                             onClick={() => setMenuOpen(false)}
-                            className={[
-                                'block font-mono text-sm py-[10px] border-b border-border',
-                                activeId === item.id ? 'text-accent' : 'text-muted',
-                            ].join(' ')}
+                            style={{
+                                display: 'block',
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '14px',
+                                padding: '10px 0',
+                                color:
+                                    activeId === item.id ? 'var(--accent)' : 'var(--text-muted)',
+                                textDecoration: 'none',
+                                borderBottom: '1px solid var(--border)',
+                            }}
                         >
                             {item.label}
                         </a>
                     ))}
                 </div>
             )}
+
+            <style jsx>{`
+        @media (max-width: 768px) {
+          .desktop-nav {
+            display: none !important;
+          }
+          .mobile-menu-btn {
+            display: block !important;
+          }
+        }
+      `}</style>
         </header>
     );
 }

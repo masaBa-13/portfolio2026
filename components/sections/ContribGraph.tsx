@@ -65,21 +65,38 @@ export default function ContribGraph() {
     if (!mounted) return null;
 
     return (
-        <section id="contrib">
+        <section id="contrib" style={{ padding: '100px 0' }}>
             <div className="container" ref={ref}>
-                <div className="section-label">// contributions</div>
+                <div className="section-title">// contributions</div>
                 <h2 className="section-heading">
-                    <span className="text-accent">Activity</span>.graph()
+                    <span className="accent">Activity</span>.graph()
                 </h2>
 
-                <div className="bg-surface border border-border p-6 relative overflow-x-auto">
+                <div
+                    style={{
+                        background: 'var(--surface)',
+                        border: '1px solid var(--border)',
+                        padding: '24px',
+                        position: 'relative',
+                        overflowX: 'auto',
+                    }}
+                >
                     {/* Stats bar */}
-                    <div className="flex justify-between items-center mb-5 font-mono text-xs">
-                        <div className="text-muted">
-                            <span className="text-accent">{totalContribs}</span> contributions in the last year
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            marginBottom: '20px',
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '12px',
+                        }}
+                    >
+                        <div style={{ color: 'var(--text-muted)' }}>
+                            <span style={{ color: 'var(--accent)' }}>{totalContribs}</span> contributions in the last year
                         </div>
-                        <div className="flex items-center gap-1">
-                            <span className="text-muted mr-2">Less</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ color: 'var(--text-muted)', marginRight: '8px' }}>Less</span>
                             {LEVELS.map((color, i) => (
                                 <div
                                     key={i}
@@ -91,11 +108,11 @@ export default function ContribGraph() {
                                     }}
                                 />
                             ))}
-                            <span className="text-muted ml-2">More</span>
+                            <span style={{ color: 'var(--text-muted)', marginLeft: '8px' }}>More</span>
                         </div>
                     </div>
 
-                    <svg ref={svgRef} width={svgWidth} height={svgHeight} className="block">
+                    <svg ref={svgRef} width={svgWidth} height={svgHeight} style={{ display: 'block' }}>
                         {/* Day labels */}
                         {dayLabels.map(
                             (label, i) =>
@@ -104,9 +121,9 @@ export default function ContribGraph() {
                                         key={`day-${i}`}
                                         x={28}
                                         y={i * (CELL_SIZE + CELL_GAP) + CELL_SIZE + 22}
-                                        fill="var(--color-muted)"
+                                        fill="var(--text-muted)"
                                         fontSize="10"
-                                        fontFamily="var(--font-family-mono)"
+                                        fontFamily="var(--font-mono)"
                                         textAnchor="end"
                                     >
                                         {label}
@@ -120,9 +137,9 @@ export default function ContribGraph() {
                                 key={`month-${i}`}
                                 x={ml.x}
                                 y={10}
-                                fill="var(--color-muted)"
+                                fill="var(--text-muted)"
                                 fontSize="10"
-                                fontFamily="var(--font-family-mono)"
+                                fontFamily="var(--font-mono)"
                             >
                                 {ml.label}
                             </text>
@@ -165,18 +182,29 @@ export default function ContribGraph() {
                     {/* Tooltip */}
                     {tooltip && (
                         <div
-                            className="absolute bg-[#1a1f2e] border border-border px-3 py-[6px] font-mono text-[11px] text-fg whitespace-nowrap z-10 pointer-events-none"
                             style={{
+                                position: 'absolute',
                                 left: tooltip.x,
                                 top: tooltip.y,
                                 transform: 'translate(-50%, -100%)',
+                                background: '#1a1f2e',
+                                border: '1px solid var(--border)',
+                                padding: '6px 12px',
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '11px',
+                                color: 'var(--text)',
+                                whiteSpace: 'nowrap',
+                                zIndex: 10,
+                                pointerEvents: 'none',
                             }}
                         >
-                            <div className="text-accent">{tooltip.day.date}</div>
+                            <div style={{ color: 'var(--accent)' }}>{tooltip.day.date}</div>
                             {tooltip.day.project && (
-                                <div className="text-muted">{tooltip.day.project}</div>
+                                <div style={{ color: 'var(--text-muted)' }}>{tooltip.day.project}</div>
                             )}
-                            <div className="text-muted">Level: {tooltip.day.level}/4</div>
+                            <div style={{ color: 'var(--text-muted)' }}>
+                                Level: {tooltip.day.level}/4
+                            </div>
                         </div>
                     )}
                 </div>

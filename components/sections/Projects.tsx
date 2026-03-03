@@ -10,14 +10,20 @@ export default function Projects() {
     const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
     return (
-        <section id="projects">
+        <section id="projects" style={{ padding: '100px 0' }}>
             <div className="container" ref={ref}>
-                <div className="section-label">// projects</div>
+                <div className="section-title">// projects</div>
                 <h2 className="section-heading">
-                    <span className="text-accent">ls</span> -la ./products
+                    <span className="accent">ls</span> -la ./products
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] gap-6">
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
+                        gap: '24px',
+                    }}
+                >
                     {projectsData.map((project, i) => (
                         <motion.div
                             key={project.id}
@@ -29,24 +35,64 @@ export default function Projects() {
                                 <div>
                                     {/* Highlight badge */}
                                     {project.highlight && (
-                                        <div className="font-mono text-[10px] text-accent border border-accent inline-block px-2 py-[1px] mb-3 tracking-[1px]">
+                                        <div
+                                            style={{
+                                                fontFamily: 'var(--font-mono)',
+                                                fontSize: '10px',
+                                                color: 'var(--accent)',
+                                                border: '1px solid var(--accent)',
+                                                display: 'inline-block',
+                                                padding: '1px 8px',
+                                                marginBottom: '12px',
+                                                letterSpacing: '1px',
+                                            }}
+                                        >
                                             ★ FEATURED
                                         </div>
                                     )}
 
-                                    <h3 className="font-mono text-base font-bold text-fg mb-[6px]">
+                                    <h3
+                                        style={{
+                                            fontFamily: 'var(--font-mono)',
+                                            fontSize: '16px',
+                                            fontWeight: 700,
+                                            color: 'var(--text)',
+                                            marginBottom: '6px',
+                                        }}
+                                    >
                                         {project.title}
                                     </h3>
 
-                                    <div className="font-mono text-[11px] text-accent-2 mb-3">
+                                    <div
+                                        style={{
+                                            fontFamily: 'var(--font-mono)',
+                                            fontSize: '11px',
+                                            color: 'var(--accent-2)',
+                                            marginBottom: '12px',
+                                        }}
+                                    >
                                         {project.period}
                                     </div>
 
-                                    <p className="text-[13px] text-muted leading-[1.7] mb-4">
+                                    <p
+                                        style={{
+                                            fontSize: '13px',
+                                            color: 'var(--text-muted)',
+                                            lineHeight: '1.7',
+                                            marginBottom: '16px',
+                                        }}
+                                    >
                                         {project.description}
                                     </p>
 
-                                    <div className="flex flex-wrap gap-[6px] mb-4">
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            gap: '6px',
+                                            marginBottom: '16px',
+                                        }}
+                                    >
                                         {project.tags.map((tag) => (
                                             <TagBadge key={tag} label={tag} />
                                         ))}
@@ -57,7 +103,14 @@ export default function Projects() {
                                             href={project.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="font-mono text-xs text-accent border-b border-accent pb-[2px] transition-colors duration-200"
+                                            style={{
+                                                fontFamily: 'var(--font-mono)',
+                                                fontSize: '12px',
+                                                color: 'var(--accent)',
+                                                borderBottom: '1px solid var(--accent)',
+                                                paddingBottom: '2px',
+                                                transition: 'color 0.2s',
+                                            }}
                                         >
                                             → VIEW_PROJECT
                                         </a>

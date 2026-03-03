@@ -19,65 +19,125 @@ export default function Hero() {
     return (
         <section
             id="hero"
-            className="min-h-screen flex items-center justify-center relative overflow-hidden"
+            style={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+            }}
         >
             {/* Grid background */}
             <div
-                className="absolute inset-0 opacity-5"
                 style={{
+                    position: 'absolute',
+                    inset: 0,
+                    opacity: 0.05,
                     backgroundImage:
-                        'linear-gradient(var(--color-accent) 1px, transparent 1px), linear-gradient(90deg, var(--color-accent) 1px, transparent 1px)',
+                        'linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px)',
                     backgroundSize: '60px 60px',
                 }}
             />
 
-            <div className="container relative z-10">
+            <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                 {/* Terminal prompt */}
-                <div className="font-mono text-sm text-accent mb-4">
-                    <span className="text-muted">visitor@portfolio</span>
-                    <span className="text-accent">:</span>
-                    <span className="text-accent-2">~</span>
-                    <span className="text-fg">$ </span>
-                    <span className="text-accent">cat intro.txt</span>
+                <div
+                    style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '14px',
+                        color: 'var(--accent)',
+                        marginBottom: '16px',
+                    }}
+                >
+                    <span style={{ color: 'var(--text-muted)' }}>visitor@portfolio</span>
+                    <span style={{ color: 'var(--accent)' }}>:</span>
+                    <span style={{ color: 'var(--accent-2)' }}>~</span>
+                    <span style={{ color: 'var(--text)' }}>$ </span>
+                    <span style={{ color: 'var(--accent)' }}>cat intro.txt</span>
                 </div>
 
                 {/* Name */}
-                <GlitchText text="祐川 雅治" tag="h1" className="" />
-                <div className="font-mono font-bold text-fg mt-[-8px] mb-6 tracking-[-1px] text-[clamp(36px,5vw,64px)]">
-                    <span className="text-muted font-normal">// </span>
+                <GlitchText
+                    text="祐川 雅治"
+                    tag="h1"
+                    className=""
+                />
+                <div
+                    style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 'clamp(36px, 5vw, 64px)',
+                        fontWeight: 700,
+                        color: 'var(--text)',
+                        marginTop: '-8px',
+                        marginBottom: '24px',
+                        letterSpacing: '-1px',
+                    }}
+                >
+                    <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>// </span>
                     SUKEKAWA MASAHARU
                 </div>
 
                 {/* Typewriter role */}
-                <div className="font-mono text-lg text-accent min-h-7 mb-8">
-                    <span className="text-muted">{'> '}</span>
+                <div
+                    style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '18px',
+                        color: 'var(--accent)',
+                        minHeight: '28px',
+                        marginBottom: '32px',
+                    }}
+                >
+                    <span style={{ color: 'var(--text-muted)' }}>{'> '}</span>
                     {displayText}
                     <span
-                        className="inline-block w-0.5 h-5 bg-accent ml-0.5 align-text-bottom"
-                        style={{ animation: 'cursor-blink 1s infinite' }}
+                        style={{
+                            display: 'inline-block',
+                            width: '2px',
+                            height: '20px',
+                            background: 'var(--accent)',
+                            marginLeft: '2px',
+                            verticalAlign: 'text-bottom',
+                            animation: 'cursor-blink 1s infinite',
+                        }}
                     />
                 </div>
 
                 {/* Status indicators */}
-                <div className="flex gap-6 flex-wrap">
+                <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
                     {[
-                        { label: 'STATUS',   value: 'ACTIVE',        color: 'text-accent' },
-                        { label: 'LOCATION', value: '函館, 北海道',      color: 'text-fg' },
-                        { label: 'COMPANY',  value: 'TackMore Inc.', color: 'text-accent-2' },
+                        { label: 'STATUS', value: 'ACTIVE', color: 'var(--accent)' },
+                        { label: 'LOCATION', value: '函館, 北海道', color: 'var(--text)' },
+                        { label: 'COMPANY', value: 'TackMore Inc.', color: 'var(--accent-2)' },
                     ].map((item) => (
-                        <div key={item.label} className="font-mono text-xs">
-                            <span className="text-muted">{item.label}: </span>
-                            <span className={item.color}>{item.value}</span>
+                        <div key={item.label} style={{ fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
+                            <span style={{ color: 'var(--text-muted)' }}>{item.label}: </span>
+                            <span style={{ color: item.color }}>{item.value}</span>
                         </div>
                     ))}
                 </div>
 
                 {/* Scroll indicator */}
-                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 font-mono text-xs text-muted text-center">
-                    <div className="mb-2">SCROLL_DOWN</div>
+                <div
+                    style={{
+                        position: 'absolute',
+                        bottom: '40px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '12px',
+                        color: 'var(--text-muted)',
+                        textAlign: 'center',
+                    }}
+                >
+                    <div style={{ marginBottom: '8px' }}>SCROLL_DOWN</div>
                     <div
-                        className="w-px h-10 mx-auto"
-                        style={{ background: 'linear-gradient(to bottom, var(--color-accent), transparent)' }}
+                        style={{
+                            width: '1px',
+                            height: '40px',
+                            background: 'linear-gradient(to bottom, var(--accent), transparent)',
+                            margin: '0 auto',
+                        }}
                     />
                 </div>
             </div>

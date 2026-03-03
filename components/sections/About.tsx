@@ -19,14 +19,14 @@ export default function About() {
     const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
 
     return (
-        <section id="about">
+        <section id="about" style={{ padding: '100px 0' }}>
             <div className="container" ref={ref}>
-                <div className="section-label">// about</div>
+                <div className="section-title">// about</div>
                 <h2 className="section-heading">
-                    <span className="text-accent">System</span>.getProfile()
+                    <span className="accent">System</span>.getProfile()
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
                     {/* Spec card */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
@@ -34,15 +34,15 @@ export default function About() {
                         transition={{ duration: 0.6 }}
                     >
                         <TerminalCard title="system_info.sh">
-                            <div className="font-mono text-[13px]">
+                            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>
                                 {specs.map((spec, i) => (
-                                    <div key={spec.key} className="mb-2 leading-relaxed">
-                                        <span className="text-accent mr-2">
+                                    <div key={spec.key} style={{ marginBottom: '8px', lineHeight: '1.6' }}>
+                                        <span style={{ color: 'var(--accent)', marginRight: '8px' }}>
                                             {String(i).padStart(2, '0')}
                                         </span>
-                                        <span className="text-accent-2">{spec.key}</span>
-                                        <span className="text-muted"> = </span>
-                                        <span className="text-fg">{spec.value}</span>
+                                        <span style={{ color: 'var(--accent-2)' }}>{spec.key}</span>
+                                        <span style={{ color: 'var(--text-muted)' }}> = </span>
+                                        <span style={{ color: 'var(--text)' }}>{spec.value}</span>
                                     </div>
                                 ))}
                             </div>
@@ -56,21 +56,21 @@ export default function About() {
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         <TerminalCard title="cat summary.md">
-                            <div className="font-body text-sm leading-[2]">
-                                <p className="mb-4">
-                                    <span className="text-accent">{'> '}</span>
+                            <div style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: '2' }}>
+                                <p style={{ marginBottom: '16px' }}>
+                                    <span style={{ color: 'var(--accent)' }}>{'> '}</span>
                                     高度な情報技術（IoT、Webアプリケーション等）を単なる技術実験に留めず、
                                     明確な社会的・経済的・法的なコンテキストの内部に正確に実装する適応能力を持つ。
                                 </p>
-                                <p className="mb-4">
-                                    <span className="text-accent">{'> '}</span>
+                                <p style={{ marginBottom: '16px' }}>
+                                    <span style={{ color: 'var(--accent)' }}>{'> '}</span>
                                     水産業のDXから始まり、コミュニティ運営、法人設立、SaaSプロダクト開発まで、
                                     常に「現場の泥臭い課題」にテクノロジーを精緻に適合させるアプローチを一貫。
                                 </p>
                                 <p>
-                                    <span className="text-accent">{'> '}</span>
+                                    <span style={{ color: 'var(--accent)' }}>{'> '}</span>
                                     モラトリアムな学生プロジェクトから、資本主義の市場原理のなかで社会変革を推進する
-                                    <span className="text-accent"> シリアルアントレプレナー </span>
+                                    <span style={{ color: 'var(--accent)' }}> シリアルアントレプレナー </span>
                                     へと進化中。
                                 </p>
                             </div>
@@ -78,6 +78,15 @@ export default function About() {
                     </motion.div>
                 </div>
             </div>
+
+            {/* Responsive styles */}
+            <style jsx>{`
+        @media (max-width: 768px) {
+          div[style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
         </section>
     );
 }

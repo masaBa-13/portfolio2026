@@ -29,26 +29,50 @@ export default function GlitchText({ text, tag: Tag = 'h1', className = '' }: Gl
     return (
         <div
             ref={ref}
-            className={`relative inline-block ${className}`}
+            className={className}
+            style={{ position: 'relative', display: 'inline-block' }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <Tag className="font-mono text-fg relative inline-block">
+            <Tag
+                style={{
+                    fontFamily: 'var(--font-mono)',
+                    color: 'var(--text)',
+                    position: 'relative',
+                    display: 'inline-block',
+                }}
+            >
                 {text}
             </Tag>
             {(isHovered || (isVisible && !isHovered)) && (
                 <>
                     <Tag
                         aria-hidden
-                        className="font-mono absolute top-0 left-0 text-accent opacity-80 pointer-events-none"
-                        style={{ animation: 'glitch-1 0.3s infinite linear alternate-reverse' }}
+                        style={{
+                            fontFamily: 'var(--font-mono)',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            color: 'var(--accent)',
+                            opacity: 0.8,
+                            animation: 'glitch-1 0.3s infinite linear alternate-reverse',
+                            pointerEvents: 'none',
+                        }}
                     >
                         {text}
                     </Tag>
                     <Tag
                         aria-hidden
-                        className="font-mono absolute top-0 left-0 text-danger opacity-80 pointer-events-none"
-                        style={{ animation: 'glitch-2 0.3s infinite linear alternate-reverse' }}
+                        style={{
+                            fontFamily: 'var(--font-mono)',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            color: 'var(--danger)',
+                            opacity: 0.8,
+                            animation: 'glitch-2 0.3s infinite linear alternate-reverse',
+                            pointerEvents: 'none',
+                        }}
                     >
                         {text}
                     </Tag>

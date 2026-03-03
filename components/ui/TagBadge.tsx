@@ -6,12 +6,18 @@ interface TagBadgeProps {
 export default function TagBadge({ label, accent = false }: TagBadgeProps) {
     return (
         <span
-            className={[
-                'inline-block px-[10px] py-[2px] font-mono text-[11px] tracking-[0.5px] uppercase transition-all duration-200 border',
-                accent
-                    ? 'border-accent text-accent bg-accent/5'
-                    : 'border-border text-muted bg-transparent',
-            ].join(' ')}
+            style={{
+                display: 'inline-block',
+                padding: '2px 10px',
+                fontSize: '11px',
+                fontFamily: 'var(--font-mono)',
+                letterSpacing: '0.5px',
+                border: `1px solid ${accent ? 'var(--accent)' : 'var(--border)'}`,
+                color: accent ? 'var(--accent)' : 'var(--text-muted)',
+                background: accent ? 'rgba(0,255,148,0.05)' : 'transparent',
+                textTransform: 'uppercase',
+                transition: 'all 0.2s ease',
+            }}
         >
             {label}
         </span>

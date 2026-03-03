@@ -118,14 +118,21 @@ export default function Contact() {
     const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
 
     return (
-        <section id="contact">
+        <section id="contact" style={{ padding: '100px 0' }}>
             <div className="container" ref={ref}>
-                <div className="section-label">// contact</div>
+                <div className="section-title">// contact</div>
                 <h2 className="section-heading">
-                    <span className="text-accent">ssh</span> connect@sukekawa
+                    <span className="accent">ssh</span> connect@sukekawa
                 </h2>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-[900px]">
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                        gap: '16px',
+                        maxWidth: '900px',
+                    }}
+                >
                     {socialLinks.map((link, i) => (
                         <motion.a
                             key={link.name}
@@ -135,13 +142,25 @@ export default function Contact() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={inView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.4, delay: i * 0.05 }}
-                            className="flex items-center gap-3 p-4 bg-surface border border-border text-muted font-mono text-[13px] transition-all duration-200"
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                padding: '16px',
+                                background: 'var(--surface)',
+                                border: '1px solid var(--border)',
+                                color: 'var(--text-muted)',
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '13px',
+                                textDecoration: 'none',
+                                transition: 'all 0.2s ease',
+                            }}
                             whileHover={{
-                                borderColor: 'var(--color-accent)',
-                                color: 'var(--color-accent)',
+                                borderColor: 'var(--accent)',
+                                color: 'var(--accent)',
                             }}
                         >
-                            <span className="shrink-0 flex">{link.icon}</span>
+                            <span style={{ flexShrink: 0, display: 'flex' }}>{link.icon}</span>
                             <span>{link.name}</span>
                         </motion.a>
                     ))}

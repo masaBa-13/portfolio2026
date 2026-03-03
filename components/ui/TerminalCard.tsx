@@ -8,16 +8,41 @@ interface TerminalCardProps {
 
 export default function TerminalCard({ title = 'terminal', children, className = '' }: TerminalCardProps) {
     return (
-        <div className={`bg-surface border border-border overflow-hidden ${className}`}>
+        <div
+            className={className}
+            style={{
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
+                overflow: 'hidden',
+            }}
+        >
             {/* Title bar */}
-            <div className="flex items-center gap-2 px-4 py-[10px] border-b border-border bg-black/30">
-                <div className="w-3 h-3 bg-danger shrink-0" />
-                <div className="w-3 h-3 bg-[#FFBD2E] shrink-0" />
-                <div className="w-3 h-3 bg-accent shrink-0" />
-                <span className="font-mono text-xs text-muted ml-2">{title}</span>
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px 16px',
+                    borderBottom: '1px solid var(--border)',
+                    background: 'rgba(0,0,0,0.3)',
+                }}
+            >
+                <div style={{ width: 12, height: 12, background: 'var(--danger)', flexShrink: 0 }} />
+                <div style={{ width: 12, height: 12, background: '#FFBD2E', flexShrink: 0 }} />
+                <div style={{ width: 12, height: 12, background: 'var(--accent)', flexShrink: 0 }} />
+                <span
+                    style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '12px',
+                        color: 'var(--text-muted)',
+                        marginLeft: '8px',
+                    }}
+                >
+                    {title}
+                </span>
             </div>
             {/* Content */}
-            <div className="p-5">{children}</div>
+            <div style={{ padding: '20px' }}>{children}</div>
         </div>
     );
 }
