@@ -1,67 +1,55 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-
-interface SkillCategory {
-    name: string;
-    skills: { name: string; level: number }[];
-}
-
-const skillCategories: SkillCategory[] = [
-    {
-        name: 'Frontend',
-        skills: [
-            { name: 'Next.js / React', level: 90 },
-            { name: 'TypeScript', level: 85 },
-            { name: 'HTML / CSS', level: 90 },
-            { name: 'Flutter', level: 35 },
-        ],
-    },
-    {
-        name: 'Backend & Infra',
-        skills: [
-            { name: 'Node.js', level: 75 },
-            { name: 'Supabase / MySQL', level: 80 },
-            { name: 'Cloudflare Workers', level: 70 },
-            { name: 'REST API Design', level: 60 },
-        ],
-    },
-    {
-        name: 'IoT & Hardware',
-        skills: [
-            { name: 'Arduino / Spresense', level: 75 },
-            { name: 'センサー設計 (磁気/加速度)', level: 70 },
-            { name: 'ELTRES / LPWA', level: 65 },
-            { name: '電波法コンプライアンス', level: 55 },
-        ],
-    },
-    {
-        name: 'Business & Management',
-        skills: [
-            { name: '起業 / 法人経営', level: 85 },
-            { name: 'プロダクトマネジメント', level: 80 },
-            { name: 'コミュニティ運営', level: 90 },
-            { name: 'ピッチ / プレゼンテーション', level: 85 },
-        ],
-    },
-];
+import { skillCategories } from '@/lib/skills-data';
+import { useApp } from '@/contexts/AppContext';
 
 export default function Skills() {
+    const { t } = useApp();
     const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
 
     return (
         <section id="skills" style={{ padding: '100px 0' }}>
             <div className="container" ref={ref}>
-                <div className="section-title">// skills</div>
-                <h2 className="section-heading">
-                    <span className="accent">npm</span> list --depth=0
-                </h2>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px', flexWrap: 'wrap', gap: '12px' }}>
+                    <div>
+                        <div className="section-title">{t.sections.skills.label}</div>
+                        <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '32px', fontWeight: 700, color: 'var(--text)', margin: 0 }}>
+                            <span className="accent">{t.sections.skills.accent}</span>{t.sections.skills.rest}
+                        </h2>
+                    </div>
+                    <Link
+                        href="/skills"
+                        style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '12px',
+                            padding: '8px 16px',
+                            border: '1px solid var(--accent)',
+                            color: 'var(--accent)',
+                            textDecoration: 'none',
+                            letterSpacing: '0.5px',
+                            transition: 'all 0.2s ease',
+                            whiteSpace: 'nowrap',
+                        }}
+                        onMouseEnter={e => {
+                            (e.currentTarget as HTMLElement).style.background = 'var(--accent)';
+                            (e.currentTarget as HTMLElement).style.color = 'var(--bg)';
+                        }}
+                        onMouseLeave={e => {
+                            (e.currentTarget as HTMLElement).style.background = 'transparent';
+                            (e.currentTarget as HTMLElement).style.color = 'var(--accent)';
+                        }}
+                    >
+                        {t.skillSheet.viewBtn}
+                    </Link>
+                </div>
 
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
+                        gridTemplateColumns: 'repeat(2, 1fr)',
                         gap: '32px',
                     }}
                 >

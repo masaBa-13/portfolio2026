@@ -1,22 +1,22 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
-
-const navItems = [
-    { id: 'about', label: 'About' },
-    { id: 'timeline', label: 'Timeline' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contrib', label: 'Activity' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'contact', label: 'Contact' },
-];
+import { useApp } from '@/contexts/AppContext';
 
 export default function Header() {
-    const activeId = useScrollSpy(
-        ['hero', ...navItems.map((n) => n.id)],
-        200
-    );
+    const { t, theme, lang, toggleTheme, toggleLang } = useApp();
+    const navItems = [
+        { id: 'about',    label: t.nav.about },
+        { id: 'timeline', label: t.nav.timeline },
+        { id: 'projects', label: t.nav.projects },
+        { id: 'contrib',  label: t.nav.activity },
+        { id: 'skills',   label: t.nav.skills },
+        { id: 'contact',  label: t.nav.contact },
+    ];
+
+    const activeId = useScrollSpy(['hero', ...navItems.map((n) => n.id)], 200);
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -26,6 +26,18 @@ export default function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const btnBase: React.CSSProperties = {
+        fontFamily: 'var(--font-mono)',
+        fontSize: '11px',
+        padding: '5px 10px',
+        background: 'transparent',
+        border: '1px solid var(--border)',
+        color: 'var(--text-muted)',
+        cursor: 'pointer',
+        letterSpacing: '0.5px',
+        transition: 'all 0.2s ease',
+    };
+
     return (
         <header
             style={{
@@ -34,7 +46,8 @@ export default function Header() {
                 left: 0,
                 right: 0,
                 zIndex: 1000,
-                background: scrolled ? 'rgba(8,11,15,0.92)' : 'transparent',
+                background: scrolled ? 'rgba(var(--bg-rgb, 255,255,255),0.92)' : 'transparent',
+                backgroundColor: scrolled ? 'color-mix(in srgb, var(--bg) 92%, transparent)' : 'transparent',
                 borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
                 backdropFilter: scrolled ? 'blur(12px)' : 'none',
                 transition: 'all 0.3s ease',
@@ -67,11 +80,7 @@ export default function Header() {
 
                 {/* Desktop nav */}
                 <nav
-                    style={{
-                        display: 'flex',
-                        gap: '4px',
-                        alignItems: 'center',
-                    }}
+                    style={{ display: 'flex', gap: '4px', alignItems: 'center' }}
                     className="desktop-nav"
                 >
                     {navItems.map((item) => (
@@ -82,13 +91,11 @@ export default function Header() {
                                 fontFamily: 'var(--font-mono)',
                                 fontSize: '12px',
                                 padding: '6px 12px',
-                                color:
-                                    activeId === item.id ? 'var(--accent)' : 'var(--text-muted)',
+                                color: activeId === item.id ? 'var(--accent)' : 'var(--text-muted)',
                                 textDecoration: 'none',
-                                borderBottom:
-                                    activeId === item.id
-                                        ? '1px solid var(--accent)'
-                                        : '1px solid transparent',
+                                borderBottom: activeId === item.id
+                                    ? '1px solid var(--accent)'
+                                    : '1px solid transparent',
                                 transition: 'all 0.2s ease',
                                 letterSpacing: '0.5px',
                             }}
@@ -96,6 +103,29 @@ export default function Header() {
                             {item.label}
                         </a>
                     ))}
+
+                    <Link
+                        href="/skills"
+                        style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '11px',
+                            padding: '5px 12px',
+                            marginLeft: '8px',
+                            border: '1px solid var(--accent)',
+                            color: 'var(--accent)',
+                            textDecoration: 'none',
+                            letterSpacing: '0.5px',
+                            transition: 'all 0.2s ease',
+                            whiteSpace: 'nowrap',
+                        }}
+                    >
+                        {t.nav.skillSheet}
+                    </Link>
+
+                    {/* Theme toggle */}
+                    <button onClick={toggleTheme} style={btnBase} title="Toggle theme">
+                        {theme === 'light' ? '🌙' : '☀️'}
+                    </button>
                 </nav>
 
                 {/* Mobile menu button */}
@@ -130,7 +160,7 @@ export default function Header() {
                         top: '64px',
                         left: 0,
                         right: 0,
-                        background: 'rgba(8,11,15,0.98)',
+                        background: 'var(--bg)',
                         borderBottom: '1px solid var(--border)',
                         padding: '16px 24px',
                     }}
@@ -145,8 +175,7 @@ export default function Header() {
                                 fontFamily: 'var(--font-mono)',
                                 fontSize: '14px',
                                 padding: '10px 0',
-                                color:
-                                    activeId === item.id ? 'var(--accent)' : 'var(--text-muted)',
+                                color: activeId === item.id ? 'var(--accent)' : 'var(--text-muted)',
                                 textDecoration: 'none',
                                 borderBottom: '1px solid var(--border)',
                             }}
@@ -154,17 +183,18 @@ export default function Header() {
                             {item.label}
                         </a>
                     ))}
+                    <div style={{ display: 'flex', gap: '8px', paddingTop: '12px' }}>
+                        <button onClick={toggleTheme} style={{ ...btnBase, flex: 1 }}>
+                            {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+                        </button>
+                    </div>
                 </div>
             )}
 
             <style jsx>{`
         @media (max-width: 768px) {
-          .desktop-nav {
-            display: none !important;
-          }
-          .mobile-menu-btn {
-            display: block !important;
-          }
+          .desktop-nav { display: none !important; }
+          .mobile-menu-btn { display: block !important; }
         }
       `}</style>
         </header>

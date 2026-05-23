@@ -3,18 +3,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { contribData, ContribDay } from '@/lib/contrib-data';
+import { useApp } from '@/contexts/AppContext';
 
 const CELL_SIZE = 14;
 const CELL_GAP = 3;
-const LEVELS = [
-    'rgba(0,255,148,0)',
-    'rgba(0,255,148,0.15)',
-    'rgba(0,255,148,0.35)',
-    'rgba(0,255,148,0.6)',
-    'rgba(0,255,148,0.9)',
-];
+
+const LEVELS_DARK  = ['rgba(63,185,80,0)', 'rgba(63,185,80,0.15)', 'rgba(63,185,80,0.35)', 'rgba(63,185,80,0.6)', 'rgba(63,185,80,0.9)'];
+const LEVELS_LIGHT = ['rgba(26,127,55,0)',  'rgba(26,127,55,0.15)', 'rgba(26,127,55,0.40)', 'rgba(26,127,55,0.65)', 'rgba(26,127,55,0.9)'];
 
 export default function ContribGraph() {
+    const { t, theme } = useApp();
+    const LEVELS = theme === 'dark' ? LEVELS_DARK : LEVELS_LIGHT;
     const svgRef = useRef<SVGSVGElement>(null);
     const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
     const [tooltip, setTooltip] = useState<{ x: number; y: number; day: ContribDay } | null>(null);
@@ -67,9 +66,9 @@ export default function ContribGraph() {
     return (
         <section id="contrib" style={{ padding: '100px 0' }}>
             <div className="container" ref={ref}>
-                <div className="section-title">// contributions</div>
+                <div className="section-title">{t.sections.activity.label}</div>
                 <h2 className="section-heading">
-                    <span className="accent">Activity</span>.graph()
+                    <span className="accent">{t.sections.activity.accent}</span>{t.sections.activity.rest}
                 </h2>
 
                 <div

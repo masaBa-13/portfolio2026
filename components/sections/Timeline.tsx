@@ -6,17 +6,19 @@ import { useInView } from 'react-intersection-observer';
 import { timelineData, TimelineEvent } from '@/lib/timeline-data';
 import TerminalCard from '@/components/ui/TerminalCard';
 import TagBadge from '@/components/ui/TagBadge';
+import { useApp } from '@/contexts/AppContext';
 
 export default function Timeline() {
+    const { t } = useApp();
     const [selected, setSelected] = useState<TimelineEvent | null>(null);
     const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
     return (
         <section id="timeline" style={{ padding: '100px 0' }}>
             <div className="container" ref={ref}>
-                <div className="section-title">// timeline</div>
+                <div className="section-title">{t.sections.timeline.label}</div>
                 <h2 className="section-heading">
-                    <span className="accent">git</span> log --oneline
+                    <span className="accent">{t.sections.timeline.accent}</span>{t.sections.timeline.rest}
                 </h2>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'start' }}>

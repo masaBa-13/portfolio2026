@@ -1,16 +1,12 @@
 'use client';
 
 import { useTypewriter } from '@/hooks/useTypewriter';
-import GlitchText from '@/components/ui/GlitchText';
+import { useApp } from '@/contexts/AppContext';
 
 export default function Hero() {
+    const { t } = useApp();
     const { displayText } = useTypewriter({
-        texts: [
-            'CEO / 株式会社TackMore',
-            'Future University Hakodate',
-            'Social Tech Entrepreneur',
-            'IoT × 地方創生',
-        ],
+        texts: t.hero.roles as unknown as string[],
         speed: 70,
         deleteSpeed: 35,
         pauseTime: 2500,
@@ -58,20 +54,27 @@ export default function Hero() {
                 </div>
 
                 {/* Name */}
-                <GlitchText
-                    text="祐川 雅治"
-                    tag="h1"
-                    className=""
-                />
+                <h1
+                    style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: 'clamp(40px, 6vw, 72px)',
+                        fontWeight: 700,
+                        color: 'var(--text)',
+                        letterSpacing: '-1px',
+                        marginBottom: '4px',
+                    }}
+                >
+                    祐川 雅治
+                </h1>
                 <div
                     style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: 'clamp(36px, 5vw, 64px)',
+                        fontSize: 'clamp(20px, 3vw, 36px)',
                         fontWeight: 700,
                         color: 'var(--text)',
-                        marginTop: '-8px',
+                        marginTop: '-4px',
                         marginBottom: '24px',
-                        letterSpacing: '-1px',
+                        letterSpacing: '-0.5px',
                     }}
                 >
                     <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>// </span>
@@ -105,20 +108,20 @@ export default function Hero() {
 
                 {/* Status indicators */}
                 <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-                    {[
-                        { label: 'STATUS', value: 'ACTIVE', color: 'var(--accent)' },
-                        { label: 'LOCATION', value: '函館, 北海道', color: 'var(--text)' },
-                        { label: 'COMPANY', value: 'TackMore Inc.', color: 'var(--accent-2)' },
-                    ].map((item) => (
+                    {t.hero.status.map((item, i) => (
                         <div key={item.label} style={{ fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
                             <span style={{ color: 'var(--text-muted)' }}>{item.label}: </span>
-                            <span style={{ color: item.color }}>{item.value}</span>
+                            <span style={{
+                                color: i === 0 ? 'var(--accent)' : i === 2 ? 'var(--accent-2)' : 'var(--text)',
+                            }}>
+                                {item.value}
+                            </span>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Scroll indicator — section基準で配置 */}
+            {/* Scroll indicator */}
             <div
                 style={{
                     position: 'absolute',

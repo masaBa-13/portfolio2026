@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { AppProvider } from '@/contexts/AppContext';
 
 export const metadata: Metadata = {
     title: '祐川雅治 | Portfolio — CEO / ソフトウェアエンジニア / 起業家',
@@ -31,7 +32,9 @@ export default function RootLayout({
     return (
         <html lang="ja">
             <head>
-                <meta name="theme-color" content="#080B0F" />
+                <meta name="theme-color" content="#ffffff" />
+                {/* Prevent flash of wrong theme */}
+                <script dangerouslySetInnerHTML={{ __html: `(function(){var t=localStorage.getItem('pf-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();` }} />
                 {/* Debug: JS error を画面に表示（Safari調査用） */}
                 <script dangerouslySetInnerHTML={{ __html: `
                   window.onerror = function(msg, src, line, col, err) {
@@ -54,7 +57,7 @@ export default function RootLayout({
                   if(!String.prototype.at){String.prototype.at=function(i){i=Math.trunc(i)||0;if(i<0)i+=this.length;if(i<0||i>=this.length)return undefined;return this[i]};}
                 `}} />
             </head>
-            <body>{children}</body>
+            <body><AppProvider>{children}</AppProvider></body>
         </html>
     );
 }

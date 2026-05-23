@@ -5,16 +5,18 @@ import { useInView } from 'react-intersection-observer';
 import { projectsData } from '@/lib/projects-data';
 import TerminalCard from '@/components/ui/TerminalCard';
 import TagBadge from '@/components/ui/TagBadge';
+import { useApp } from '@/contexts/AppContext';
 
 export default function Projects() {
+    const { t } = useApp();
     const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
     return (
         <section id="projects" style={{ padding: '100px 0' }}>
             <div className="container" ref={ref}>
-                <div className="section-title">// projects</div>
+                <div className="section-title">{t.sections.projects.label}</div>
                 <h2 className="section-heading">
-                    <span className="accent">ls</span> -la ./products
+                    <span className="accent">{t.sections.projects.accent}</span>{t.sections.projects.rest}
                 </h2>
 
                 <div

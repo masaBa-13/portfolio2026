@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useApp } from '@/contexts/AppContext';
 
 const socialLinks = [
     {
@@ -62,14 +63,15 @@ const socialLinks = [
 ];
 
 export default function Contact() {
+    const { t } = useApp();
     const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
 
     return (
         <section id="contact" style={{ padding: '100px 0' }}>
             <div className="container" ref={ref}>
-                <div className="section-title">// contact</div>
+                <div className="section-title">{t.sections.contact.label}</div>
                 <h2 className="section-heading">
-                    <span className="accent">ssh</span> connect@sukekawa
+                    <span className="accent">{t.sections.contact.accent}</span>{t.sections.contact.rest}
                 </h2>
 
                 <div
