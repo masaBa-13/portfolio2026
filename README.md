@@ -1,34 +1,198 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 祐川雅治 — ポートフォリオサイト 2026
 
-## Getting Started
+[公立はこだて未来大学](https://www.fun.ac.jp/) 在学 / 株式会社TackMore CEO、**祐川雅治**のポートフォリオWebサイト。  
+ターミナル／ハッカー風ダークテーマで構築した Next.js 製シングルページアプリケーション。
 
-First, run the development server:
+> **ライブサイト:** [https://tackmore.jp](https://tackmore.jp) *(予定)*
+
+---
+
+## 🗂 プロジェクト概要
+
+「ローカルな泥臭い課題 × テクノロジーの実装」を一貫したフィロソフィーに、IoT・Webアプリ・SaaS・地方創生など幅広い領域で取り組んできた開発・事業活動を一覧できるポートフォリオサイト。
+
+---
+
+## 🏗 実装したセクション
+
+| セクション | 説明 |
+|---|---|
+| **Hero** | タイプライターアニメーション + グリッチエフェクト付きの全画面ファーストビュー |
+| **About** | ターミナルカード形式のプロフィール・スペック表示 |
+| **Timeline** | 2023〜2026年の活動・プロジェクトをインタラクティブな縦型タイムラインで表示 |
+| **Projects** | 主要プロダクト6件をカード形式で掲載。ハイライト案件は強調表示 |
+| **ContribGraph** | GitHubのコントリビューショングラフ風に、プロジェクト活動密度を可視化 |
+| **Skills** | フロントエンド・バックエンド・IoT・ビジネスの4カテゴリをアニメーション付きゲージで表示 |
+| **Contact** | SNS・メールなど各種連絡先へのリンク |
+
+---
+
+## 🚀 掲載プロダクト・プロジェクト
+
+### RemeMore — 電子名刺サービス（2025.02〜現在）
+NFC/QRコードを活用したデジタル名刺サービス。物理カード「Reme Card」とプロフィールページを一元管理するWebアプリを融合。ペーパーレス化とESG経営を推進する複合型SaaS。  
+🔗 [reme-more.com](https://reme-more.com)
+
+### マグログ — デジタル操業日誌（2024.04〜2025.03）
+松前町のマグロ漁業における漁獲情報共有を電話（同期型通信）からWebアプリ（非同期型）へ移行。29隻全漁船に100%導入を達成。高齢漁業者が船上で直感的に操作できるUI/UXを追求。  
+🔗 [成果報告PDF](https://www.fun.ac.jp/wp-content/uploads/2025/05/project11.pdf)
+
+### IoT箱罠検知システム（2024.04〜2025.03）
+電波法のコンプライアンスを維持しつつ、ヒグマ等の大型野生動物捕獲用箱罠の作動をIoTで遠隔検知。加速度センサーから磁気センサーへの反復的最適化により環境耐性と確実性を実現。  
+🔗 [メディア掲載](https://www.ehako.com/news/news2024a/14437_index_msg.shtml)
+
+### 函館まちかど水族館 アプリ（2024）
+遊休施設に設置した水槽（Offline）とインタラクティブな生態解説アプリ（Online）を融合したOMO型プロジェクト。**青森市学生ビジネスアイデアコンテスト グランプリ受賞**。  
+🔗 [未来大 活動報告](https://www.fun.ac.jp/en/activity/26275)
+
+### 99Bar — 学生のためのBar（2024.02〜2025.03）
+学生の「やりたい」を叶える実践的経営体験の場。ターゲット分析・経費管理などビジネスの現場を提供。未利用魚を活用したメニュー開発も並行して実施。  
+🔗 [note 紹介記事](https://note.com/isaribi_with/n/n4a6fbe618ee5)
+
+### DXCUP2024 — 遊牧民IoTソリューション（2023.06〜2023.12）
+遊牧民が抱える社会課題（商店・教育・医療アクセス困難と牧畜業の不安定性）を解決するIoTソリューションをJICAセミナーにて提案・発表。  
+🔗 [JICAセミナー情報](https://www.jica.go.jp/information/seminar/2023/20231226_2.html)
+
+---
+
+## 📅 活動タイムライン
+
+| 時期 | 活動 |
+|------|------|
+| 2023.06 | 学生団体 **ISARIBI with** 設立（チームリーダー）、サラダフィッシュFUGUBO 商品開発 |
+| 2023.06 | **DXCUP2024** 参加・JICAセミナー発表 |
+| 2023〜2024 | **DEMOLAプログラム** 参加（北大・北教大・未来大 8名チーム）|
+| 2024.02 | **99Bar** 開業（代表）|
+| 2024.04 | **スマート道南プロジェクト**（マグログ & IoT箱罠）リーダーとして主導 |
+| 2024 | **函館まちかど水族館** OMOプロジェクト、青森市コンテスト グランプリ受賞 |
+| 2025.02 | **株式会社TackMore** 設立・代表取締役CEO就任 |
+| 2025.06 | **アオタケプロジェクト2025** 採択（東北・北海道広域スタートアップ支援、150万円獲得）|
+
+---
+
+## 🛠 技術スタック
+
+### フロントエンド
+- **Next.js 16** (App Router) / **React 19**
+- **TypeScript**
+- **Framer Motion** — ページ全体のアニメーション
+- **D3.js** — コントリビューショングラフの描画
+- **clsx** — 条件付きクラス管理
+- **react-intersection-observer** — スクロール連動アニメーション
+
+### カスタムコンポーネント
+| コンポーネント | 説明 |
+|---|---|
+| `GlitchText` | CRTモニター風グリッチエフェクト付きテキスト |
+| `ScanLine` | 全画面オーバーレイのスキャンライン演出 |
+| `TerminalCard` | ターミナルウィンドウ風カードUI |
+| `TagBadge` | プロジェクトタグ用バッジ |
+
+### カスタムフック
+| フック | 説明 |
+|---|---|
+| `useTypewriter` | 複数テキストを順番にタイプ&デリートするアニメーション |
+| `useScrollSpy` | スクロール位置に応じてアクティブセクションを追跡 |
+
+### データ管理
+| ファイル | 説明 |
+|---|---|
+| `lib/projects-data.ts` | プロダクト・プロジェクト一覧データ |
+| `lib/timeline-data.ts` | 活動タイムラインデータ |
+| `lib/contrib-data.ts` | コントリビューショングラフ用アクティビティデータ生成 |
+
+---
+
+## 🎨 デザインコンセプト
+
+- **ターミナル / ハッカー風ダークテーマ** — `#0a0e14` ベースの背景、シアン系アクセントカラー
+- **等幅フォント** — コード・ラベル類は `font-mono` で統一
+- **CRTアニメーション** — スキャンライン・グリッチエフェクトでレトロテック感を演出
+- **スクロール連動アニメーション** — `Intersection Observer` + `Framer Motion` でセクションごとにフェードイン
+
+---
+
+## 📦 セットアップ・開発手順
+
+### 必要環境
+- Node.js 20 以上
+- npm / yarn / pnpm / bun のいずれか
+
+### インストール & 起動
 
 ```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### その他のコマンド
 
-## Learn More
+```bash
+npm run build   # 本番用ビルド
+npm run start   # 本番サーバーの起動
+npm run lint    # ESLint によるコード検証
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🗄 ディレクトリ構成
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+portfolio2026/
+├── app/
+│   ├── layout.tsx        # ルートレイアウト（フォント・メタデータ設定）
+│   ├── page.tsx          # メインページ（全セクション組み合わせ）
+│   ├── not-found.tsx     # 404ページ
+│   └── globals.css       # グローバルスタイル・CSS変数
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx    # ナビゲーションヘッダー
+│   │   └── Footer.tsx    # フッター
+│   ├── sections/
+│   │   ├── Hero.tsx      # ファーストビュー
+│   │   ├── About.tsx     # プロフィール
+│   │   ├── Timeline.tsx  # 活動タイムライン
+│   │   ├── Projects.tsx  # プロジェクト一覧
+│   │   ├── ContribGraph.tsx  # 活動グラフ
+│   │   ├── Skills.tsx    # スキルゲージ
+│   │   └── Contact.tsx   # 連絡先
+│   └── ui/
+│       ├── GlitchText.tsx    # グリッチアニメーション
+│       ├── ScanLine.tsx      # スキャンライン
+│       ├── TagBadge.tsx      # タグバッジ
+│       └── TerminalCard.tsx  # ターミナルカード
+├── hooks/
+│   ├── useScrollSpy.ts   # スクロール位置追跡
+│   └── useTypewriter.ts  # タイプライターアニメーション
+├── lib/
+│   ├── projects-data.ts  # プロジェクトデータ
+│   ├── timeline-data.ts  # タイムラインデータ
+│   └── contrib-data.ts   # コントリビューションデータ生成
+├── next.config.ts
+├── tsconfig.json
+└── eslint.config.mjs
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚢 デプロイ
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[Vercel](https://vercel.com/) へのデプロイを推奨。`main` ブランチへのプッシュで自動デプロイされます。
+
+```bash
+# Vercel CLI でのデプロイ
+npx vercel --prod
+```
+
+詳細は [Next.js デプロイドキュメント](https://nextjs.org/docs/app/building-your-application/deploying) を参照。
+
+---
+
+## 📄 ライセンス
+
+本リポジトリのコードは個人ポートフォリオ用途で作成されています。
