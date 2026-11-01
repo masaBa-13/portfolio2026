@@ -14,7 +14,7 @@ const translations = {
         hero: {
             roles: [
                 'CEO / 株式会社TackMore',
-                'Future University Hakodate',
+                '公立はこだて未来大学 大学院生',
                 'Social Tech Entrepreneur',
                 'IoT × 地方創生',
             ],
@@ -31,7 +31,7 @@ const translations = {
                 { key: 'NAME',         value: '祐川 雅治 (Sukekawa Masaharu)' },
                 { key: 'ROLE',         value: 'CEO / ソフトウェアエンジニア / 起業家' },
                 { key: 'COMPANY',      value: '株式会社TackMore' },
-                { key: 'UNIVERSITY',   value: '公立はこだて未来大学' },
+                { key: 'UNIVERSITY',   value: '公立はこだて未来大学 大学院' },
                 { key: 'ORGANIZATION', value: '学生団体ISARIBI with / おさかな日和' },
                 { key: 'LOCATION',     value: '函館, 北海道, Japan' },
                 { key: 'INTERESTS',    value: 'カメラ📷 / スノボ🏂 / コーヒー☕️' },
@@ -67,7 +67,7 @@ const translations = {
         hero: {
             roles: [
                 'CEO / TackMore Inc.',
-                'Future University Hakodate',
+                'Graduate Student, Future University Hakodate',
                 'Social Tech Entrepreneur',
                 'IoT × Regional Innovation',
             ],
@@ -84,7 +84,7 @@ const translations = {
                 { key: 'NAME',         value: 'Masaharu Sukekawa (祐川 雅治)' },
                 { key: 'ROLE',         value: 'CEO / Software Engineer / Entrepreneur' },
                 { key: 'COMPANY',      value: 'TackMore Inc.' },
-                { key: 'UNIVERSITY',   value: 'Future University Hakodate' },
+                { key: 'UNIVERSITY',   value: 'Future University Hakodate (Graduate School)' },
                 { key: 'ORGANIZATION', value: 'ISARIBI with / Osakana Biyori' },
                 { key: 'LOCATION',     value: 'Hakodate, Hokkaido, Japan' },
                 { key: 'INTERESTS',    value: 'Photography📷 / Snowboarding🏂 / Coffee☕️' },

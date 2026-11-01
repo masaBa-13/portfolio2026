@@ -22,12 +22,64 @@ export const projectsData: Project[] = [
     {
         id: 'maglog',
         title: 'マグログ — デジタル操業日誌',
-        period: '2024.04 〜 2025.03',
+        period: '2024.04 〜 現在',
         description:
-            '松前町のマグロ漁業における漁獲情報共有を、電話（同期型通信）からWebアプリ（非同期型）へ移行。29隻全漁船に100%導入を達成。高齢漁業者が船上で直感的に操作できるUI/UXを追求。',
-        tags: ['Web App', 'UI/UX', 'DX', '水産業'],
+            '松前町のマグロ漁業における漁獲情報共有を、電話（同期型通信）からWebアプリ（非同期型）へ移行。29隻全漁船に100%導入を達成し、現在も漁協向けシステムとして実運用中。高齢漁業者が船上で直感的に操作できるUI/UXを追求。旧来のPHPシステムからNext.js / PostgreSQL構成へリプレイスを行った。',
+        tags: ['Next.js', 'PostgreSQL', 'Cloudflare', 'UI/UX', '水産業DX'],
         link: 'https://www.fun.ac.jp/wp-content/uploads/2025/05/project11.pdf',
         highlight: true,
+    },
+    {
+        id: 'master-study',
+        title: '修士研究 — マグロ延縄漁業の操業分析・漁場選択支援',
+        period: '2026 〜 現在',
+        description:
+            '公立はこだて未来大学大学院での修士研究（和田研究室）。松前マグロ延縄漁業のGNSS航跡データや海面水温（SST）データを解析し、pandas / scikit-learn / XGBoost等を用いたデータ分析・機械学習による漁場選択支援に取り組む。漁場データの可視化Webアプリ「open-fishmap」も開発。',
+        tags: ['Python', '機械学習', 'データ分析', 'Streamlit', '水産業'],
+        link: 'https://github.com/masaBa-13/open-fishmap',
+    },
+    {
+        id: 'codary',
+        title: 'Codary — AI技術ブログ生成サービス',
+        period: '2026',
+        description:
+            'GDGoC Japan Hackathon 2026 提出作品。GitHubのコード差分とAIとの対話ログから、技術ブログ記事を自動生成するサービス。フロントエンドはFlutter + Firebase、バックエンドはTypeScript + Express + Docker、記事生成にはVertex AI（Gemini）を活用。',
+        tags: ['Flutter', 'Firebase', 'Vertex AI', 'TypeScript', 'ハッカソン'],
+    },
+    {
+        id: 'isaribi-hp',
+        title: 'ISARIBI with コーポレートサイト',
+        period: '2026',
+        description:
+            'ISARIBI with のコーポレートサイト制作（受託）。Next.js / TypeScriptで構築し、多言語対応（next-intl）とCloudflare上での配信に対応したモダンな構成で開発。',
+        tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Cloudflare', '受託開発'],
+    },
+    {
+        id: 'share-calendar',
+        title: 'AIMA — 日程調整サービス',
+        period: '2026',
+        description:
+            'Googleカレンダーの空き時間を共有し、日程調整を効率化するサービス「AIMA」。Cloudflare Workers上で動作し、Google Calendar APIとOAuth 2.0による認証連携を実装。',
+        tags: ['Cloudflare Workers', 'TypeScript', 'Google Calendar API', 'OAuth'],
+        link: 'https://github.com/masaBa-13/share-calendar',
+    },
+    {
+        id: 'code-health-viz',
+        title: 'code-health-viz — コードヘルス可視化ツール',
+        period: '2026',
+        description:
+            'コードの健全性を定量化し、関数コールグラフとして可視化するPython製ツール。tree-sitterによる構文解析とnetworkxによるグラフ分析を用い、テスト・型チェックを備えたOSSスタイルの開発を実践。',
+        tags: ['Python', 'tree-sitter', 'Flask', 'OSS'],
+        link: 'https://github.com/masaBa-13/code-health-viz',
+    },
+    {
+        id: 'swift-raw-editor',
+        title: 'Swift RAW Editor — macOS RAW現像エディタ',
+        period: '2026',
+        description:
+            'SwiftUIとMetalで構築したmacOSネイティブのRAW現像エディタ。外部ライブラリに依存しない実装で、GPUによる画像処理を行う。',
+        tags: ['Swift', 'SwiftUI', 'Metal', 'macOS'],
+        link: 'https://github.com/masaBa-13/swift-raw-editor',
     },
     {
         id: 'iot-trap',

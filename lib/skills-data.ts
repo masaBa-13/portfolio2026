@@ -17,7 +17,8 @@ export const skillCategories: SkillCategory[] = [
             { name: 'Next.js / React', level: 90 },
             { name: 'TypeScript', level: 85 },
             { name: 'HTML / CSS', level: 90 },
-            { name: 'Flutter', level: 35 },
+            { name: 'Tailwind CSS', level: 85 },
+            { name: 'Flutter', level: 55 },
         ],
     },
     {
@@ -25,9 +26,28 @@ export const skillCategories: SkillCategory[] = [
         icon: '⚙',
         skills: [
             { name: 'Node.js', level: 75 },
-            { name: 'Supabase / MySQL', level: 80 },
-            { name: 'Cloudflare Workers', level: 70 },
+            { name: 'PostgreSQL / Firebase', level: 80 },
+            { name: 'Cloudflare (Workers / Pages / D1 / R2)', level: 80 },
             { name: 'REST API Design', level: 60 },
+            { name: 'Docker / GitHub Actions', level: 55 },
+        ],
+    },
+    {
+        name: 'Data & AI',
+        icon: '🤖',
+        skills: [
+            { name: 'Python', level: 85 },
+            { name: 'データ分析 (pandas / numpy)', level: 80 },
+            { name: '機械学習 (scikit-learn / XGBoost)', level: 70 },
+            { name: 'LLM活用 (Claude / Gemini / Vertex AI)', level: 75 },
+        ],
+    },
+    {
+        name: 'Mobile & Desktop',
+        icon: '📱',
+        skills: [
+            { name: 'Swift / SwiftUI (Metal)', level: 60 },
+            { name: 'Kotlin (Android)', level: 50 },
         ],
     },
     {
