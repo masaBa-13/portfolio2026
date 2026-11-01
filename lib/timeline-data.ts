@@ -100,7 +100,7 @@ export const timelineData: TimelineEvent[] = [
   },
   {
     id: 'tackmore',
-    date: '2025.02',
+    date: '2025.06',
     year: 2025,
     title: '株式会社TackMore 設立',
     description: '電子名刺サービス「RemeMore」を主力プロダクトとする法人を設立。CEO就任。',

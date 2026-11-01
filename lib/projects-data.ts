@@ -12,7 +12,7 @@ export const projectsData: Project[] = [
     {
         id: 'rememore',
         title: 'RemeMore — 電子名刺サービス',
-        period: '2025.02 〜 現在',
+        period: '2025.06 〜 現在',
         description:
             'NFC/QRコードを活用したデジタル名刺サービス。物理カード「Reme Card」と、プロフィールページを一元管理するWebアプリケーションを融合。ペーパーレス化とESG経営を推進する複合型SaaSプロダクト。',
         tags: ['Next.js', 'SaaS', 'NFC', 'QR', 'TypeScript'],
