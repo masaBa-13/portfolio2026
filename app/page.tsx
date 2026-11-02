@@ -1,6 +1,5 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import ScanLine from '@/components/ui/ScanLine';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import Timeline from '@/components/sections/Timeline';
@@ -12,7 +11,6 @@ import Contact from '@/components/sections/Contact';
 export default function Home() {
     return (
         <>
-            <ScanLine />
             <Header />
             <main>
                 <Hero />

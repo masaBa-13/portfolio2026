@@ -1,211 +1,105 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { MouseEvent, useState, useSyncExternalStore } from 'react';
 import { contribData, ContribDay } from '@/lib/contrib-data';
 import { useApp } from '@/contexts/AppContext';
 
-const CELL_SIZE = 14;
-const CELL_GAP = 3;
+const DAY_LABELS = ['Sun', '', 'Tue', '', 'Thu', '', 'Sat'];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const LEVELS_DARK  = ['rgba(63,185,80,0)', 'rgba(63,185,80,0.15)', 'rgba(63,185,80,0.35)', 'rgba(63,185,80,0.6)', 'rgba(63,185,80,0.9)'];
-const LEVELS_LIGHT = ['rgba(26,127,55,0)',  'rgba(26,127,55,0.15)', 'rgba(26,127,55,0.40)', 'rgba(26,127,55,0.65)', 'rgba(26,127,55,0.9)'];
+const weeks: ContribDay[][] = [];
+for (let i = 0; i < contribData.length; i += 7) weeks.push(contribData.slice(i, i + 7));
 
-export default function ContribGraph() {
-    const { t, theme } = useApp();
-    const LEVELS = theme === 'dark' ? LEVELS_DARK : LEVELS_LIGHT;
-    const svgRef = useRef<SVGSVGElement>(null);
-    const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
-    const [tooltip, setTooltip] = useState<{ x: number; y: number; day: ContribDay } | null>(null);
-    const [mounted, setMounted] = useState(false);
+const totalContribs = contribData.filter((d) => d.level > 0).length;
+const subscribe = () => () => {};
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+interface Layout {
+    cell: number;
+    gap: number;
+    left: number;
+    top: number;
+    font: number;
+}
 
-    // Organize data into weeks
-    const weeks: ContribDay[][] = [];
-    let currentWeek: ContribDay[] = [];
-
-    contribData.forEach((day, i) => {
-        currentWeek.push(day);
-        if (currentWeek.length === 7) {
-            weeks.push(currentWeek);
-            currentWeek = [];
-        }
-    });
-    if (currentWeek.length > 0) {
-        weeks.push(currentWeek);
-    }
-
-    const svgWidth = weeks.length * (CELL_SIZE + CELL_GAP) + 40;
-    const svgHeight = 7 * (CELL_SIZE + CELL_GAP) + 30;
-
-    const dayLabels = ['Sun', '', 'Tue', '', 'Thu', '', 'Sat'];
-    const monthLabels: { label: string; x: number }[] = [];
-
-    // Calculate month labels
-    let lastMonth = -1;
-    weeks.forEach((week, wi) => {
-        if (week[0]) {
-            const d = new Date(week[0].date);
-            const month = d.getMonth();
-            if (month !== lastMonth) {
-                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                monthLabels.push({ label: monthNames[month], x: wi * (CELL_SIZE + CELL_GAP) + 40 });
-                lastMonth = month;
-            }
-        }
-    });
-
-    // Count total contributions
-    const totalContribs = contribData.filter((d) => d.level > 0).length;
-
-    if (!mounted) return null;
+function Strip({ list, startWeek, y, layout, picked }: { list: ContribDay[][]; startWeek: number; y: number; layout: Layout; picked: number | null }) {
+    const { cell, gap, left, top, font } = layout;
+    const step = cell + gap;
+    const months = list.map((week) => new Date(week[0].date).getMonth());
 
     return (
-        <section id="contrib" style={{ padding: '100px 0' }}>
-            <div className="container" ref={ref}>
-                <div className="section-title">{t.sections.activity.label}</div>
-                <h2 className="section-heading">
-                    <span className="accent">{t.sections.activity.accent}</span>{t.sections.activity.rest}
-                </h2>
+        <g transform={`translate(0 ${y})`}>
+            {DAY_LABELS.map((label, i) => label && (
+                <text key={label} x={left - 8} y={top + i * step + cell - 1} fontSize={font} textAnchor="end">{label}</text>
+            ))}
+            {months.map((month, wi) => (wi === 0 || month !== months[wi - 1]) && (
+                <text key={`m${wi}`} x={left + wi * step} y={font} fontSize={font}>{MONTHS[month]}</text>
+            ))}
+            {list.map((week, wi) => week.map((day, di) => {
+                const index = (startWeek + wi) * 7 + di;
+                return (
+                    <rect
+                        key={index}
+                        data-index={index}
+                        className={`lv${day.level}${picked === index ? ' is-picked' : ''}`}
+                        x={left + wi * step}
+                        y={top + di * step}
+                        width={cell}
+                        height={cell}
+                    />
+                );
+            }))}
+        </g>
+    );
+}
 
-                <div
-                    style={{
-                        background: 'var(--surface)',
-                        border: '1px solid var(--border)',
-                        padding: '24px',
-                        position: 'relative',
-                        overflowX: 'auto',
-                    }}
-                >
-                    {/* Stats bar */}
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginBottom: '20px',
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: '12px',
-                        }}
-                    >
-                        <div style={{ color: 'var(--text-muted)' }}>
-                            <span style={{ color: 'var(--accent)' }}>{totalContribs}</span> contributions in the last year
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ color: 'var(--text-muted)', marginRight: '8px' }}>Less</span>
-                            {LEVELS.map((color, i) => (
-                                <div
-                                    key={i}
-                                    style={{
-                                        width: CELL_SIZE,
-                                        height: CELL_SIZE,
-                                        background: i === 0 ? 'rgba(30,45,61,0.5)' : color,
-                                        border: '1px solid rgba(30,45,61,0.3)',
-                                    }}
-                                />
-                            ))}
-                            <span style={{ color: 'var(--text-muted)', marginLeft: '8px' }}>More</span>
-                        </div>
+export default function ContribGraph() {
+    const { t } = useApp();
+    const [picked, setPicked] = useState<number | null>(null);
+    const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+
+    const pick = (e: MouseEvent<SVGSVGElement>) => {
+        const index = (e.target as SVGElement).getAttribute('data-index');
+        if (index !== null) setPicked(Number(index));
+    };
+
+    const day = picked === null ? null : contribData[picked];
+
+    // 一年を上下二段に分け、横スクロールなしでセルの大きさを保つ
+    const half = Math.ceil(weeks.length / 2);
+    const narrow: Layout = { cell: 11, gap: 2, left: 44, top: 22, font: 17 };
+    const narrowW = narrow.left + half * (narrow.cell + narrow.gap);
+    const narrowH = (narrow.top + 7 * (narrow.cell + narrow.gap)) * 2 + 12;
+
+    return (
+        <section id="contrib" className="sec">
+            <div className="container">
+                <div className="sec-grid">
+                    <h2 className="sec-h">{t.nav.activity}</h2>
+                    <div className="sec-body">
+                {/* 選んだ日の内容はここに出す。指で押してもカーソルを載せても同じ */}
+                <p className="ag-line" aria-live="polite">
+                    {day
+                        ? <>{day.date}{day.project ? ` / ${day.project}` : ''} / Level: {day.level}/4</>
+                        : <>{totalContribs} contributions in the last year</>}
+                </p>
+                {mounted ? (
+                    <>
+                        <svg className="ag-svg" viewBox={`0 0 ${narrowW} ${narrowH}`} onClick={pick} onMouseOver={pick} aria-hidden="true">
+                            <Strip list={weeks.slice(0, half)} startWeek={0} y={0} layout={narrow} picked={picked} />
+                            <Strip list={weeks.slice(half)} startWeek={half} y={narrowH / 2 + 6} layout={narrow} picked={picked} />
+                        </svg>
+                    </>
+                ) : (
+                    <div className="ag-empty" />
+                )}
+                <div className="ag-legend" aria-hidden="true">
+                    <span>Less</span>
+                    {[0, 1, 2, 3, 4].map((level) => (
+                        <i key={level} style={{ background: `var(--cell-${level})` }} />
+                    ))}
+                    <span>More</span>
+                </div>
                     </div>
-
-                    <svg ref={svgRef} width={svgWidth} height={svgHeight} style={{ display: 'block' }}>
-                        {/* Day labels */}
-                        {dayLabels.map(
-                            (label, i) =>
-                                label && (
-                                    <text
-                                        key={`day-${i}`}
-                                        x={28}
-                                        y={i * (CELL_SIZE + CELL_GAP) + CELL_SIZE + 22}
-                                        fill="var(--text-muted)"
-                                        fontSize="10"
-                                        fontFamily="var(--font-mono)"
-                                        textAnchor="end"
-                                    >
-                                        {label}
-                                    </text>
-                                )
-                        )}
-
-                        {/* Month labels */}
-                        {monthLabels.map((ml, i) => (
-                            <text
-                                key={`month-${i}`}
-                                x={ml.x}
-                                y={10}
-                                fill="var(--text-muted)"
-                                fontSize="10"
-                                fontFamily="var(--font-mono)"
-                            >
-                                {ml.label}
-                            </text>
-                        ))}
-
-                        {/* Cells */}
-                        {weeks.map((week, wi) =>
-                            week.map((day, di) => (
-                                <rect
-                                    key={`${wi}-${di}`}
-                                    x={wi * (CELL_SIZE + CELL_GAP) + 40}
-                                    y={di * (CELL_SIZE + CELL_GAP) + 18}
-                                    width={CELL_SIZE}
-                                    height={CELL_SIZE}
-                                    fill={day.level === 0 ? 'rgba(30,45,61,0.5)' : LEVELS[day.level]}
-                                    stroke="rgba(30,45,61,0.3)"
-                                    strokeWidth={1}
-                                    style={{
-                                        opacity: inView ? 1 : 0,
-                                        transition: `opacity 0.3s ease ${(wi * 7 + di) * 2}ms`,
-                                        cursor: 'pointer',
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        const rect = e.currentTarget.getBoundingClientRect();
-                                        const parent = e.currentTarget.closest('div')?.getBoundingClientRect();
-                                        if (parent) {
-                                            setTooltip({
-                                                x: rect.left - parent.left + CELL_SIZE / 2,
-                                                y: rect.top - parent.top - 8,
-                                                day,
-                                            });
-                                        }
-                                    }}
-                                    onMouseLeave={() => setTooltip(null)}
-                                />
-                            ))
-                        )}
-                    </svg>
-
-                    {/* Tooltip */}
-                    {tooltip && (
-                        <div
-                            style={{
-                                position: 'absolute',
-                                left: tooltip.x,
-                                top: tooltip.y,
-                                transform: 'translate(-50%, -100%)',
-                                background: '#1a1f2e',
-                                border: '1px solid var(--border)',
-                                padding: '6px 12px',
-                                fontFamily: 'var(--font-mono)',
-                                fontSize: '11px',
-                                color: 'var(--text)',
-                                whiteSpace: 'nowrap',
-                                zIndex: 10,
-                                pointerEvents: 'none',
-                            }}
-                        >
-                            <div style={{ color: 'var(--accent)' }}>{tooltip.day.date}</div>
-                            {tooltip.day.project && (
-                                <div style={{ color: 'var(--text-muted)' }}>{tooltip.day.project}</div>
-                            )}
-                            <div style={{ color: 'var(--text-muted)' }}>
-                                Level: {tooltip.day.level}/4
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
         </section>
