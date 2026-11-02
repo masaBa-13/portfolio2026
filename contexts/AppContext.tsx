@@ -25,23 +25,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
         if (savedLang) setLang(savedLang);
     }, []);
 
-    // Apply theme to <html> and persist
-    useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('pf-theme', theme);
-    }, [theme]);
+    // 読み込み時の配色は layout の先行スクリプトが当てている。
+    // ここで初期値を書き戻すと夜の配色の人に一瞬昼の配色が見えるので、切り替えたときだけ反映する
+    const toggleTheme = () => {
+        const next = theme === 'light' ? 'dark' : 'light';
+        setTheme(next);
+        document.documentElement.setAttribute('data-theme', next);
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', next === 'light' ? '#fdfdfc' : '#161615');
+        localStorage.setItem('pf-theme', next);
+    };
 
-    // Persist lang
+    const toggleLang = () => {
+        const next = lang === 'ja' ? 'en' : 'ja';
+        setLang(next);
+        localStorage.setItem('pf-lang', next);
+    };
+
     useEffect(() => {
-        localStorage.setItem('pf-lang', lang);
+        document.documentElement.lang = lang;
     }, [lang]);
 
     return (
         <AppContext.Provider value={{
             theme,
             lang,
-            toggleTheme: () => setTheme(p => p === 'light' ? 'dark' : 'light'),
-            toggleLang:  () => setLang(p => p === 'ja' ? 'en' : 'ja'),
+            toggleTheme,
+            toggleLang,
             t: translations[lang] as Translations,
         }}>
             {children}

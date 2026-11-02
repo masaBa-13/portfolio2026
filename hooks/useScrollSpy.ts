@@ -9,6 +9,12 @@ export function useScrollSpy(sectionIds: string[], offset = 100) {
         const handleScroll = () => {
             const scrollY = window.scrollY + offset;
 
+            // 最後の節が短いと上端が基準線まで届かないので、ページの末尾では最後の節にする
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+                setActiveId(sectionIds[sectionIds.length - 1] || '');
+                return;
+            }
+
             for (let i = sectionIds.length - 1; i >= 0; i--) {
                 const section = document.getElementById(sectionIds[i]);
                 if (section && section.offsetTop <= scrollY) {

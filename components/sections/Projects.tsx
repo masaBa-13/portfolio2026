@@ -1,126 +1,124 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { projectsData } from '@/lib/projects-data';
-import TerminalCard from '@/components/ui/TerminalCard';
-import TagBadge from '@/components/ui/TagBadge';
+import { useEffect, useRef } from 'react';
+import { projectsData, Project } from '@/lib/projects-data';
 import { useApp } from '@/contexts/AppContext';
+import { hostOf } from '@/components/sections/Timeline';
+import { DeckViewer, Shots, SiteFrame } from '@/components/sections/ProjectMedia';
+
+const FLEET_PHRASE = '29隻全漁船に100%導入';
+
+const featured = projectsData.filter((p) => p.highlight);
+const others = projectsData.filter((p) => !p.highlight);
+
+const splitTitle = (title: string) => {
+    const [name, kind] = title.split(' — ');
+    return { name, kind };
+};
+
+function Description({ text }: { text: string }) {
+    const [before, after] = text.split(FLEET_PHRASE);
+    if (after === undefined) return <>{text}</>;
+    return (
+        <>
+            {before}
+            <strong>{FLEET_PHRASE}</strong>
+            {after}
+        </>
+    );
+}
+
+function Tags({ project }: { project: Project }) {
+    return (
+        <p className="tags">
+            {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+        </p>
+    );
+}
+
+function OutLink({ project }: { project: Project }) {
+    if (!project.link) return null;
+    return (
+        <>
+            <a className="out" href={project.link} target="_blank" rel="noopener noreferrer">
+                {hostOf(project.link)}
+            </a>
+            {project.documents?.map((doc) => (
+                <a key={doc.url} className="out" href={doc.url} target="_blank" rel="noopener noreferrer">
+                    {doc.label}
+                </a>
+            ))}
+        </>
+    );
+}
+
+function Media({ project }: { project: Project }) {
+    return (
+        <>
+            {project.decks?.map((id) => <DeckViewer key={id} id={id} />)}
+            {project.embed && project.link && (
+                <SiteFrame url={project.link} title={project.title} />
+            )}
+        </>
+    );
+}
 
 export default function Projects() {
     const { t } = useApp();
-    const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+    const rows = useRef<HTMLDivElement>(null);
+
+    // 幅の広い画面では説明を最初から見せる
+    useEffect(() => {
+        if (!window.matchMedia('(min-width: 900px)').matches) return;
+        rows.current?.querySelectorAll('details').forEach((d) => { d.open = true; });
+        // 開いた分だけ下の節がずれるので、ページ内リンクで来たときは移動し直す
+        if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
+    }, []);
 
     return (
-        <section id="projects" style={{ padding: '100px 0' }}>
-            <div className="container" ref={ref}>
-                <div className="section-title">{t.sections.projects.label}</div>
-                <h2 className="section-heading">
-                    <span className="accent">{t.sections.projects.accent}</span>{t.sections.projects.rest}
-                </h2>
-
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
-                        gap: '24px',
-                    }}
-                >
-                    {projectsData.map((project, i) => (
-                        <motion.div
-                            key={project.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={inView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                        >
-                            <TerminalCard title={`${project.id}.config`}>
-                                <div>
-                                    {/* Highlight badge */}
-                                    {project.highlight && (
-                                        <div
-                                            style={{
-                                                fontFamily: 'var(--font-mono)',
-                                                fontSize: '10px',
-                                                color: 'var(--accent)',
-                                                border: '1px solid var(--accent)',
-                                                display: 'inline-block',
-                                                padding: '1px 8px',
-                                                marginBottom: '12px',
-                                                letterSpacing: '1px',
-                                            }}
-                                        >
-                                            ★ FEATURED
+        <section id="projects" className="sec">
+            <div className="container">
+                <div className="sec-grid">
+                    <h2 className="sec-h">{t.nav.projects}</h2>
+                    <div className="sec-body">
+                        {featured.map((project) => {
+                            const { name, kind } = splitTitle(project.title);
+                            return (
+                                <article key={project.id} className="feat">
+                                    <h3 className="feat-name">{name}</h3>
+                                    <p className="feat-kind">{kind}</p>
+                                    <p className="meta">{project.period}</p>
+                                    <Shots images={project.images} />
+                                    <p className="feat-desc"><Description text={project.description} /></p>
+                                    <Tags project={project} />
+                                    <OutLink project={project} />
+                                    <Media project={project} />
+                                </article>
+                            );
+                        })}
+                        <div className="rows" ref={rows}>
+                            {others.map((project) => {
+                                const { name, kind } = splitTitle(project.title);
+                                return (
+                                    <details key={project.id} className="row">
+                                        <summary>
+                                            <span className="row-name">{name}</span>
+                                            {kind && <span className="row-kind">{kind}</span>}
+                                            <span className="row-period">{project.period}</span>
+                                            <span className="plus" aria-hidden="true" />
+                                        </summary>
+                                        <div className="row-body">
+                                            <Shots images={project.images} />
+                                            <p>{project.description}</p>
+                                            <Tags project={project} />
+                                            <OutLink project={project} />
+                                            <Media project={project} />
                                         </div>
-                                    )}
-
-                                    <h3
-                                        style={{
-                                            fontFamily: 'var(--font-mono)',
-                                            fontSize: '16px',
-                                            fontWeight: 700,
-                                            color: 'var(--text)',
-                                            marginBottom: '6px',
-                                        }}
-                                    >
-                                        {project.title}
-                                    </h3>
-
-                                    <div
-                                        style={{
-                                            fontFamily: 'var(--font-mono)',
-                                            fontSize: '11px',
-                                            color: 'var(--accent-2)',
-                                            marginBottom: '12px',
-                                        }}
-                                    >
-                                        {project.period}
-                                    </div>
-
-                                    <p
-                                        style={{
-                                            fontSize: '13px',
-                                            color: 'var(--text-muted)',
-                                            lineHeight: '1.7',
-                                            marginBottom: '16px',
-                                        }}
-                                    >
-                                        {project.description}
-                                    </p>
-
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            flexWrap: 'wrap',
-                                            gap: '6px',
-                                            marginBottom: '16px',
-                                        }}
-                                    >
-                                        {project.tags.map((tag) => (
-                                            <TagBadge key={tag} label={tag} />
-                                        ))}
-                                    </div>
-
-                                    {project.link && (
-                                        <a
-                                            href={project.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            style={{
-                                                fontFamily: 'var(--font-mono)',
-                                                fontSize: '12px',
-                                                color: 'var(--accent)',
-                                                borderBottom: '1px solid var(--accent)',
-                                                paddingBottom: '2px',
-                                                transition: 'color 0.2s',
-                                            }}
-                                        >
-                                            → VIEW_PROJECT
-                                        </a>
-                                    )}
-                                </div>
-                            </TerminalCard>
-                        </motion.div>
-                    ))}
+                                    </details>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
