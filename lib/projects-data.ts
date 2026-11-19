@@ -31,6 +31,15 @@ export const projectsData: Project[] = [
         link: 'https://github.com/jphacks/sp_2608',
         highlight: true,
         decks: ['tabireco'],
+        images: [
+            {
+                src: '/images/projects/tabireco/poster.webp',
+                width: 1000,
+                height: 1414,
+                alt: 'TABIRECOのポスター。機能紹介、経路探索アルゴリズム、音楽推薦ロジックを図解',
+                caption: 'JPHACKS 2026 Award Day ポスター',
+            },
+        ],
     },
     {
         id: 'rememore',
