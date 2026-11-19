@@ -286,6 +286,51 @@ export const timelineData: TimelineEvent[] = [
     ],
   },
   {
+    id: 'jphacks',
+    date: '2026.11',
+    year: 2026,
+    title: 'JPHACKS 2026 Award Day',
+    description: 'ドライブ・コンパニオン「TABIRECO」で総合2位、審査委員特別賞（登大遊氏）、ロート製薬賞、サイバーエージェント賞を受賞。JPHACKS Innovator 認定。',
+    details: [
+      'Award Day 総合2位（全国14チーム中）',
+      '審査委員特別賞（登大遊氏）',
+      'ロート製薬賞',
+      'サイバーエージェント賞',
+      'JPHACKS Innovator 認定',
+    ],
+    tags: ['ハッカソン', 'KMP', 'Android Auto', 'UX'],
+    images: [
+      {
+        src: '/images/projects/tabireco/award-2nd-place.webp',
+        width: 2880,
+        height: 2160,
+        alt: 'JPHACKS 2026 Award Day の結果発表スクリーン。sp_2608 旅れこが総合2位',
+        caption: 'Award Day 総合2位',
+      },
+      {
+        src: '/images/projects/tabireco/pitch.webp',
+        width: 3888,
+        height: 2592,
+        alt: 'Award Day でピッチ中の様子',
+        caption: 'Award Day ピッチ',
+      },
+      {
+        src: '/images/projects/tabireco/award-judges-special.webp',
+        width: 3240,
+        height: 2160,
+        alt: '審査委員特別賞（登大遊氏）の受賞記念写真。チーム全員で集合',
+        caption: '審査委員特別賞（登大遊氏）',
+      },
+    ],
+    articles: [
+      {
+        title: 'JPHACKS 2026',
+        source: 'JPHACKS',
+        url: 'https://jphacks.com',
+      },
+    ],
+  },
+  {
     id: 'aotake',
     date: '2025.06',
     year: 2025,
