@@ -286,6 +286,46 @@ export const timelineData: TimelineEvent[] = [
     ],
   },
   {
+    id: 'aotake',
+    date: '2025.06',
+    year: 2025,
+    title: 'アオタケプロジェクト2025 採択',
+    description: '東北・北海道エリアの広域スタートアップ・エコシステムに採択。150万円の資金を活用した高速仮説検証を実践。',
+    details: [
+      '東北・北海道広域スタートアップ支援プログラムに採択',
+      '「失敗を10個重ねること」を目標に掲げる',
+      'リーンスタートアップ手法に基づく高速仮説検証',
+      '数百人のユーザー獲得を目指す実践的アプローチ',
+    ],
+    tags: ['スタートアップ', '資金調達', 'アクセラレーター'],
+    images: [
+      {
+        src: '/images/timeline/aotake/ten-failures.webp',
+        width: 1600,
+        height: 900,
+        alt: '「10回の失敗を目指す」と書かれたスライド',
+        caption: '発表資料「かざす、繋がる、魅せる。」より',
+      },
+    ],
+    articles: [
+      {
+        title: 'アオタケプロジェクト2025 採択者紹介② 祐川雅治さん',
+        source: 'スパークル株式会社（note）',
+        url: 'https://note.com/spurcle_tohoku/n/nceff2fb09dce',
+      },
+      {
+        title: '「アオタケプロジェクト」採択のお知らせ',
+        source: '株式会社TackMore',
+        url: 'https://tackmore.jp/news/20250628-000000',
+      },
+      {
+        title: 'AOTAKE Project',
+        source: 'アオタケプロジェクト',
+        url: 'https://aizu-startups-foundation.com/aotake/top',
+      },
+    ],
+  },
+  {
     id: 'jphacks',
     date: '2026.11',
     year: 2026,
@@ -327,46 +367,6 @@ export const timelineData: TimelineEvent[] = [
         title: 'JPHACKS 2026',
         source: 'JPHACKS',
         url: 'https://jphacks.com',
-      },
-    ],
-  },
-  {
-    id: 'aotake',
-    date: '2025.06',
-    year: 2025,
-    title: 'アオタケプロジェクト2025 採択',
-    description: '東北・北海道エリアの広域スタートアップ・エコシステムに採択。150万円の資金を活用した高速仮説検証を実践。',
-    details: [
-      '東北・北海道広域スタートアップ支援プログラムに採択',
-      '「失敗を10個重ねること」を目標に掲げる',
-      'リーンスタートアップ手法に基づく高速仮説検証',
-      '数百人のユーザー獲得を目指す実践的アプローチ',
-    ],
-    tags: ['スタートアップ', '資金調達', 'アクセラレーター'],
-    images: [
-      {
-        src: '/images/timeline/aotake/ten-failures.webp',
-        width: 1600,
-        height: 900,
-        alt: '「10回の失敗を目指す」と書かれたスライド',
-        caption: '発表資料「かざす、繋がる、魅せる。」より',
-      },
-    ],
-    articles: [
-      {
-        title: 'アオタケプロジェクト2025 採択者紹介② 祐川雅治さん',
-        source: 'スパークル株式会社（note）',
-        url: 'https://note.com/spurcle_tohoku/n/nceff2fb09dce',
-      },
-      {
-        title: '「アオタケプロジェクト」採択のお知らせ',
-        source: '株式会社TackMore',
-        url: 'https://tackmore.jp/news/20250628-000000',
-      },
-      {
-        title: 'AOTAKE Project',
-        source: 'アオタケプロジェクト',
-        url: 'https://aizu-startups-foundation.com/aotake/top',
       },
     ],
   },
