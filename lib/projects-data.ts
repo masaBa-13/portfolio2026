@@ -30,6 +30,7 @@ export const projectsData: Project[] = [
         tags: ['Kotlin Multiplatform', 'Android Auto', 'Valhalla', 'Spotify API', 'MapLibre'],
         link: 'https://github.com/jphacks/sp_2608',
         highlight: true,
+        decks: ['tabireco'],
     },
     {
         id: 'rememore',

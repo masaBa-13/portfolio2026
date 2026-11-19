@@ -7,6 +7,12 @@ export interface Deck {
 }
 
 export const decks: Record<string, Deck> = {
+    'tabireco': {
+        id: 'tabireco',
+        title: 'JPHACKS 2026 Award Day ピッチ（2026年11月15日）',
+        total: 17,
+        pages: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17],
+    },
     'rememore-service': {
         id: 'rememore-service',
         title: 'サービス紹介資料（2025年11月）',
