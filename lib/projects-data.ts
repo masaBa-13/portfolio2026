@@ -22,6 +22,16 @@ export interface Project {
 
 export const projectsData: Project[] = [
     {
+        id: 'tabireco',
+        title: 'TABIRECO — ドライブ・コンパニオン',
+        period: '2026.10 〜 現在',
+        description:
+            '景色の良いルートと道のりに合わせた音楽を提案するドライブ・コンパニオン。GPS・天気・車内の雰囲気からルートと選曲を最適化し、Android Auto の車載画面にも対応。自前の経路サーバー（Valhalla）で景観ルートを計算。JPHACKS 2026 Award Day 総合2位、審査委員特別賞（登大遊氏）、ロート製薬賞、サイバーエージェント賞を受賞。JPHACKS Innovator 認定。',
+        tags: ['Kotlin Multiplatform', 'Android Auto', 'Valhalla', 'Spotify API', 'MapLibre'],
+        link: 'https://github.com/jphacks/sp_2608',
+        highlight: true,
+    },
+    {
         id: 'rememore',
         title: 'RemeMore — 電子名刺サービス',
         period: '2025.06 〜 現在',
